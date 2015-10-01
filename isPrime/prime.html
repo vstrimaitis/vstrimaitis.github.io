@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>ar pirminis?</title>
+	<script>
+	function getAns(){
+		var num = document.getElementById("input").value;
+		document.getElementById("output").innerHTML = "";
+		if(num <= 1 || !(num%1 === 0)){
+			document.getElementById("output").innerHTML = "Ne pirminis";
+			return ;
+		}
+		if(num > 100000000000000){
+			alert("Per didelis skaicius");
+			return ;
+		}
+		var isPrime = true;
+		for(var i = 2; i*i <= num; i++){
+			if(num%i == 0)
+				isPrime = false;
+		}
+		if(isPrime){
+			document.getElementById("output").innerHTML = "Pirminis";
+		}else{
+			document.getElementById("output").innerHTML = "Ne pirminis";
+		}
+	}
+	</script>
+</head>
+<body>
+	<p align="right"><a href="../index.html">Home</a></p>
+	<table>
+		<tr>
+			<td>
+				Skaicius: 
+			</td>
+			<td>
+				<input type="text" id="input"></input>
+			</td>
+		</tr>
+		<tr>
+			<td colspan=2 align ="center">
+				<button id="btn" onclick="getAns()">Ar priminis?</button>
+			</td>
+		</tr>
+	</table>
+	<p id="output"></p>
+</body>
+</html>
