@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>π</title>
+	<script src="pi.js"></script>
+	<script>
+	
+	function calculate(){
+		var num = document.getElementById("input").value;
+		if(num < 0){
+			alert("Netinkamas inputas");
+			return ;
+		}
+		document.getElementById("output").innerHTML = "π = 3";
+		if(num > 999999){
+			alert("Nu jau cia per daug :)");
+			return ;
+		}
+		if(num > 0){
+			document.getElementById("output").innerHTML += "."+pimillion.substring(0,num);
+			//document.getElementById("output").innerHTML = pimillion;
+		}
+	}
+	</script>
+</head>
+<body>
+	<p align="right"><a href="../index.html">Home</a></p>
+	<p>Atsakymas truncate'inamas (neapvalinamas)</p>
+	<table>
+		<tr>
+			<td>
+				Kiek skaitmenu po kablelio: 
+			</td>
+			<td>
+				<input type="text" id="input"></input>
+			</td>
+		</tr>
+		<tr>
+			<td colspan=2 align ="center">
+				<button id="btn" onclick="calculate()">GO!</button>
+			</td>
+		</tr>
+	</table>
+	<p id="output"></p>
+</body>
+</html>
