@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>skaidymas</title>
+	<script>
+	function getAns(){
+		var num = document.getElementById("input").value;
+		var deg;
+		var isFirst = true;
+		document.getElementById("output").innerHTML = "";
+		if(num < 1 || !(num%1 === 0)){
+			alert("Netinka inputas");
+			return ;
+		}
+		if(num > 100000000000000){
+			alert("Per didelis skaicius");
+			return ;
+		}
+		if(num == 1){
+			document.getElementById("output").innerHTML = "1 = 1";
+			return ;
+		}
+		document.getElementById("output").innerHTML = num+" = ";
+		for(var i = 2; i <= num; i++){
+			if(num%i == 0){
+				if(isFirst){
+					document.getElementById("output").innerHTML += i;
+					isFirst = false;
+				}else{
+					document.getElementById("output").innerHTML += " &#215; "+i;
+				}
+				
+				deg = 0;
+				while(num%i == 0){
+					deg++;
+					num /= i;
+				}
+				if(deg > 1)
+					document.getElementById("output").innerHTML += "<sup>"+deg+"</sup>";
+			}
+		}
+	}
+	</script>
+</head>
+<body>
+	<p align="right"><a href="../index.html">Home</a></p>
+	<table>
+		<tr>
+			<td>
+				Skaicius: 
+			</td>
+			<td>
+				<input type="text" id="input"></input>
+			</td>
+		</tr>
+		<tr>
+			<td colspan=2 align ="center">
+				<button id="btn" onclick="getAns()">Skaidyt</button>
+			</td>
+		</tr>
+	</table>
+	<p id="output"></p>
+</body>
+</html>
