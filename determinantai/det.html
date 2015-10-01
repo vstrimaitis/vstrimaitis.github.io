@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>determinantu skaiciuotuvas</title>
+	<script>
+	function calculateDet(mat){
+		if(mat.length == 1){ // 1x1
+			return mat[0][0];
+		}
+		if(mat.length == 2){ // 2x2
+			return mat[0][0]*mat[1][1] - mat[0][1]*mat[1][0];
+		}
+		if(mat.length == 3){
+			var plus, minus;
+			plus = mat[0][0]*mat[1][1]*mat[2][2] + mat[0][1]*mat[1][2]*mat[2][0] + mat[0][2]*mat[1][0]*mat[2][1];
+			minus = mat[0][0]*mat[1][2]*mat[2][1] + mat[0][1]*mat[1][0]*mat[2][2] + mat[0][2]*mat[1][1]*mat[2][0];
+			return plus-minus;
+		}
+		var firstRow = mat[0], tmp, len = firstRow.length, ans = 0;
+		for(var i = 0; i < len; i++){
+			tmp = [];
+			for(var j = 1; j < len; j++){
+				for(var k = 0; k < len; k++){
+					if(k != i){
+						tmp.push(mat[j][k]);
+					}
+				}
+			}
+			if(i%2 == 0)
+				ans += mat[0][i] * calculateDet(convertToTwoD(tmp));
+			else
+				ans -= mat[0][i] * calculateDet(convertToTwoD(tmp));
+			
+		}
+		return ans;
+	}
+	function convertToTwoD(arr){
+		var ans = [], tmp = [];
+		var len = Math.sqrt(arr.length);
+		for(var i = 0; i < len; i++){
+			tmp = [];
+			for(var j = 0; j < len; j++){
+				tmp.push(arr[len*i+j]);
+			}
+			ans.push(tmp);
+		}
+		return ans;
+	}
+	function clearContents(element){
+		element.value = '';
+	}
+	function isSquare(arr){
+		return Math.sqrt(arr.length) % 1 === 0;
+	}
+	function solve(){
+		var txt = document.getElementById("matrix").value;
+		var res1 = txt.split("\n"), res2, res = [];
+		for(var i = 0; i < res1.length; i++){
+			res2 = [];
+			res2 = res1[i].split(" ");
+			for(var j = 0; j < res2.length; j++){
+				if(res2[j] != '')
+					res.push(res2[j]);
+			}
+		}
+		//alert("RES = "+res);
+		if(!isSquare(res)){
+			document.getElementById("ans").value = "Matrica ne kvadratinė\n";
+			return ;
+		}
+		var twoDmatrix = convertToTwoD(res);
+		document.getElementById("ans").value = calculateDet(twoDmatrix)+"\n";
+		return ;
+	}
+	</script>
+	<style type="text/css">
+	textarea{
+		font-size: 30px;
+	}
+	#ans{
+		font-size: 60px;
+		font-weight: bold;
+	}
+	</style>
+</head>
+<body>
+	<p align="right"><a href="../index.html">Home</a></p>
+	<p>Vest <b>skaicius</b>, atskirtus tarpais arba newline'ais</p>
+	<table border = 0> <tr>
+		<td>
+			<textarea id="matrix" onfocus="clearContents(this);" rows=10 cols=20>Matrica</textarea>
+		</td>
+		<td>
+			<button id="go" onclick="solve();">-></button>
+		</td>
+		<td>
+			<textarea id="ans" rows=5 cols=10>Det</textarea>
+		</td>
+		
+	</tr></table>
+</body>
+</html>
