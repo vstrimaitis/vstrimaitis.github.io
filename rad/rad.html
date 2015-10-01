@@ -1,0 +1,63 @@
+<html>
+<head>
+<title>Radianai ir laipsniai</title>
+<meta charset="utf-8">
+<script>
+
+function lirt(){
+prad.innerHTML = '<sup>o</sup>';
+gal.innerHTML = 'rad';
+document.pasirinkimas.vienas.value = '';
+document.pasirinkimas.du.value = '';
+}
+
+function rilt(){
+gal.innerHTML = '<sup>o</sup>';
+prad.innerHTML = 'rad';
+document.pasirinkimas.vienas.value = '';
+document.pasirinkimas.du.value = '';
+}
+
+function convert(){
+if(prad.innerHTML == '<sup>o</sup>'){
+var l = document.pasirinkimas.vienas.value;
+if(isNaN(l) == true){
+ alert('Įveskite skaičių!');
+}
+else{
+var rad = Math.round(((l*Math.PI)/180)*100);
+document.pasirinkimas.du.value = rad/100;
+}
+}
+else if (prad.innerHTML == 'rad'){
+var rad = document.pasirinkimas.vienas.value;
+if(isNaN(rad) == true){
+ alert('Įveskite skaičių!');
+}
+else{
+var l = Math.round(((180*rad)/Math.PI)*100);
+document.pasirinkimas.du.value = l/100;
+}
+}
+}
+function atstatyti(){
+convert();
+}
+
+</script>
+
+</head>
+
+<body>
+<p align="right"><a href="../index.html">Home</a></p>
+<form name="pasirinkimas">
+<p align="center">
+<input type="radio" name="mygt" onClick="lirt()"> Laipsniai į radianus <br>
+<input type="radio" name="mygt" onClick="rilt()"> Radianai į laipsnius 
+</p>
+<hr><hr><hr>
+<p align="center"><input type="text" name="vienas" onSelect="clear()"><span id="prad">&nbsp;</span> = <input type="text" name="du" onBlur="atstatyti()"><span id="gal">&nbsp;</span> <input type="button" value="Versti" onClick="convert()"></p>
+</form>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+@charset "utf-8";
+ body,table,td,th{
+	 font-family:"Times New Roman", Times, serif;
+	 
+ }
+ body{
+	 font-size: 20px;
+	 }
+ table{
+ 	border: 2px solid black;
+ }
+ td{
+	 border: 1px solid black;
+	 font-size: 20px;
+	 }
+ th{
+	 font-size: 25px;
+	 }
+ #pav{
+	 text-align: center;
+ }
+ .txt{
+	 font-size: 16px;
+	 }
+#S, #P{
+	font-size: 16px;
+	}
+#Info{
+	position: absolute;
+	width: 300px;
+	height: 30px;
+	margin: 10px 10px 10px 10px;
+	padding: 10px 10px 25px 20px;
+	border: 2px red dashed;
+	left: 1042px;
+	top: 32px;
+	}

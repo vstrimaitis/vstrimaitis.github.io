@@ -1,0 +1,79 @@
+<html>
+<head>
+<title>Trikampių skaičiuotuvas</title>
+<meta charset="utf-8">
+<script type="text/javascript" src="JS/programa.js"></script>
+<link href="stiliai/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<p align="right"><a href="../index.html">Home</a></p>
+<p id="pav"><img src="img/Trikampis.jpg" width="600" height="347">
+<div id="Info">Įveskite tris ar daugiau duomenis, iš kurių bent vienas yra kraštinės ilgis.</div>
+</p>
+<form name="duomenys">
+	<table align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <th colspan="5" align="center" valign="bottom">Kraštinės</th>
+    </tr>
+  <tr>
+    <td align="center" valign="bottom"><i>a</i></td>
+    <td colspan="2" align="center" valign="bottom"><i>b</i></td>
+    <td colspan="2" align="center" valign="bottom"><i>c</i></td>
+    </tr>
+  <tr>
+    <td align="center" valign="bottom"><input name="a" type="text" onFocus="trinti(0)"></td>
+    <td colspan="2" align="center" valign="bottom"><input name="b" type="text" onFocus="trinti(1)"></td>
+    <td colspan="2" align="center" valign="bottom"><input name="c" type="text" onFocus="trinti(2)"></td>
+    </tr>
+  <tr>
+    <th colspan="5" align="center" valign="bottom">Kampai</th>
+    </tr>
+  <tr>
+    <td align="center" valign="bottom"><i>&alpha;</i></td>
+    <td colspan="2" align="center" valign="bottom"><i>&beta;</i></td>
+    <td colspan="2" align="center" valign="bottom"><i>&gamma;</i></td>
+    </tr>
+  <tr>
+    <td align="center" valign="bottom"><input name="alfa" type="text" onFocus="trinti(3)"></td>
+    <td colspan="2" align="center" valign="bottom"><input name="beta" type="text" onFocus="trinti(4)"></td>
+    <td colspan="2" align="center" valign="bottom"><input name="gama" type="text" onFocus="trinti(5)"></td>
+    </tr>
+  <tr>
+    <th colspan="5" align="center" valign="bottom">Plotas ir perimetras</th>
+    </tr>
+  <tr>
+    <td colspan="2" align="center" valign="bottom"><i>S</i></td>
+    <td colspan="3" align="center" valign="bottom"><i>P</i></td>
+    </tr>
+  <tr>
+    <td colspan="2" align="center" valign="bottom"><p id="S"></p></td>
+    <td colspan="3" align="center" valign="bottom"><p id="P"></p></td>
+    </tr>
+  <tr>
+  <td colspan="6" align="center" valign="bottom"><p class="txt">Apvalinant po kablelio palikti
+  <select name="apv" onChange="apvalinimas()">
+  <option selected="selected">1</option>
+  <option>2</option>
+  <option>3</option>
+  <option>4</option>
+  <option>5</option>
+  <option>6</option>
+  <option>7</option>
+  <option>8</option>
+  <option>9</option>
+  <option>10</option>
+  <option>11</option>
+  <option>12</option>
+  <option>13</option>
+  <option>14</option>
+  <option>15</option>
+  </select> <span id="zodis">skaitmenį</span></p>
+  </td>
+  </tr>
+</table>
+<p align="center"><input type="button" value="Skaičiuoti" onClick="skaiciuoti()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    <input type="button" onClick="trintiVisus()" value="Trinti"></p>
+
+</form>
+</body>
+
+</html>

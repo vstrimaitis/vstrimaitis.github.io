@@ -1,0 +1,78 @@
+<html>
+<head>
+<title>Kvadratinių lygčių skaičiuotuvas</title>
+<meta charset="utf-8">
+<script type="text/javascript">
+
+function clear(x){
+
+if(x == 1){
+document.forma.a.value = '';
+}
+else if (x == 2){
+document.forma.b.value = '';
+}
+else{
+document.forma.c.value = '';
+}
+
+}
+
+function skaiciuok(){
+ var D;
+ var x1;
+ var x2;
+ var a = document.forma.a.value;
+ var b = document.forma.b.value;
+ var c = document.forma.c.value;
+ var ats = '';
+ 
+ D = b*b - 4*a*c;
+ 
+ x1 = ((-1)*b + Math.sqrt(D))/(2*a);
+ x2 = ((-1)*b - Math.sqrt(D))/(2*a);
+ 
+ x1 = (Math.round(x1*100))/100;
+ x2 = (Math.round(x2*100))/100;
+ 
+ if(D < 0){
+ ats = 'Ši lygtis neturi realiųjų sprendinių.';
+ }
+ else if (D == 0){
+ ats = 'Ši lygtis turi vieną sprendinį.<br>Diskriminantas: '+D+'<br>x = '+x1;
+ }
+ else if(isNaN(a) == true || isNaN(b) == true || isNaN(c) == true){
+ alert('Įveskite tik skaičius');
+ }
+else{
+ats = 'Ši lygtis turi du realiuosius sprendinius.<br>Diskriminantas: '+D+'<br>x<sub>1</sub> = '+x1+'<br>x<sub>2</sub> = '+x2;
+}
+
+ rez.innerHTML = ats;
+}
+
+function generuok(){
+document.forma.a.value = Math.round(Math.random()*100-50);
+document.forma.b.value = Math.round(Math.random()*100-50);
+document.forma.c.value = Math.round(Math.random()*100-50);
+}
+
+</script>
+
+</head>
+<body>
+<p align="right"><a href="../index.html">Home</a></p>
+
+<form name="forma">
+
+<input type="text" name="a" onSelect="clear(1)" size="5" maxlength="3"> x<sup>2</sup> + 
+<input type="text" name="b" onSelect="clear(2)" size="5" maxlength="3" > x + 
+<input type="text" name="c" onSelect="clear(3)" size="5" maxlength="3" > = 0 <br>
+<input type="button" value="Skaičiuoti" onClick="skaiciuok()">
+<input type="button" value="Sugeneruoti atsitiktinius koeficientus" onClick="generuok()">
+</form>
+<hr>
+<p id="rez"></p>
+
+</body>
+</html>

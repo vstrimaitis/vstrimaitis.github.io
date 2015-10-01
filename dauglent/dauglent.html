@@ -1,0 +1,41 @@
+<html>
+<head>
+<title>Daugybos lentelių generatorius</title>
+<meta charset="utf-8">
+<script type="text/javascript">
+
+for(var i = 1; i<=1; i++){
+var trr = prompt('Įveskite, kiek norite eilučių',5);
+var tdr = prompt('Įveskite, kiek norite stulpelių',5);
+  if(isNaN(trr) == true || isNaN(tdr) == true){
+   alert('Prašome įvesti tik skaičius!');
+   i--;
+  }
+}
+document.write('<p align="right"><a href="../index.html">Home</a></p>');
+document.write('<table style="border: 1px solid #58ACFA " align="center">');
+ for(var tr = 1; tr <= trr; tr++){
+ document.write('<tr>');
+   for(var td = 1; td <= tdr; td++){
+    if(tr == 1 || td == 1){
+    document.write('<td width="30" height="30" align="center" valign="middle" style="border: 1px solid #58ACFA ; background-color: #58ACFA " >');
+    document.write('<b>'+tr*td+'</b>');
+    }
+    else{
+    document.write('<td width="30" height="30" align="center" valign="middle" style="border: 1px solid #58ACFA " >');
+    document.write( '<i>'+tr*td+'</i>' );
+    }
+    document.write('</td>');
+   }
+ document.write('</tr>');
+ }
+document.write('</table>');
+
+</script>
+
+</head>
+
+<body>
+</body>
+
+</html>
