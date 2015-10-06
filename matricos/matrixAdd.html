@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>matricu sudetis</title>
+	<style type="text/css">
+		table td{
+			vertical-align: middle;
+			text-align: center;
+			border: 1px solid black;
+		}
+		.chess{
+			background-color: rgb(255,255,255);
+		}
+	</style>
+	<script>
+	function isValidMatrix(mat){
+		var n, N = -1;
+		for(var i = 0; i < mat.length; i++){
+			n = mat[i].length;
+			if(N == -1)
+				N = n;
+			if(n != N)
+				return false
+		}
+		return true;
+	}
+	function isNumber(c){
+		return !isNaN(parseInt(c));
+	}
+	function mult(m1, m2, ii, jj){
+		var ans = 0;
+		for(var i = 0; i < m2.length; i++){
+			ans += m1[ii][i] * m2[i][jj];
+		}
+		return ans;
+	}
+	function solve(){
+		var temp1 = document.getElementById("pirmas").value;
+		var temp2 = document.getElementById("antras").value;
+		var tmp1 = temp1.split("\n");
+		var tmp2 = temp2.split("\n");
+		var t1 = [], t2 = [];
+		var r1, c1, r2, c2;
+		var matrix1 = [], matrix2 = [];
+		for(var i = 0; i < tmp1.length; i++){
+			t1 = tmp1[i].split(" ");
+			for(var j = 0; j < t1.length; j++){
+				if(!isNumber(t1[j]))
+					t1.splice(j,1);
+			}
+			if(t1.length != 0)
+				matrix1.push(t1);
+		}
+		for(var i = 0; i < tmp2.length; i++){
+			t2 = tmp2[i].split(" ");
+			for(var j = 0; j < t2.length; j++){
+				if(!isNumber(t2[j]))
+					t2.splice(j,1);
+			}
+			if(t2.length != 0)
+				matrix2.push(t2);
+		}
+		
+		if(!isValidMatrix(matrix1)){
+			alert("Pirma matrica negera!");
+			return ;
+		}
+		if(!isValidMatrix(matrix2)){
+			alert("Antra matrica negera!");
+			return ;
+		}
+		r1 = matrix1.length;
+		c1 = matrix1[0].length;
+		r2 = matrix2.length;
+		c2 = matrix2[0].length;
+		/*alert(r1+"x"+c1);
+		alert(r2+"x"+c2);*/
+		if(!(r1 == r2 && c1 == c2)){
+			alert("Tokiu matricu sudet neimanoma (neatitinka matmenys)!");
+			return ;
+		}
+		//alert(r1+"x"+c1+" ir "+r2+"x"+c2);
+		var tmp = [], result = [];
+		for(var i = 0; i < r1; i++){
+			tmp = [];
+			for(var j = 0; j < c2; j++){
+				//tmp.push(mult(matrix1, matrix2, i, j));
+				matrix1[i][j] -= 0;
+				matrix2[i][j] -= 0;
+				tmp.push(matrix1[i][j]+matrix2[i][j]);
+			}
+			result.push(tmp);
+		}
+		//alert(result);
+		
+		
+		//==============Generate HTML===========================
+		
+		var htmlCode = "<hr />\n";
+		htmlCode += "<table cellspacing=0 cellpadding=10>\n"
+		for(var i = 0; i < result.length; i++){
+			htmlCode += "<tr>\n";
+			for(var j = 0; j < result[i].length; j++){
+				htmlCode += "<td";
+				if((i+j)%2 == 0)
+					htmlCode += " class=\"chess\"";
+				htmlCode += ">" + result[i][j] + "</td>\n";
+			}
+			htmlCode += "</tr>\n";
+		}
+		htmlCode += "</table>\n"
+		
+		//======================================================
+		//alert(htmlCode);
+		document.getElementById("ans").innerHTML = htmlCode;
+		return ;
+	}
+	
+	
+	</script>
+</head>
+<body>
+	<p align="right"><a href="../index.html">Home</a></p>
+	<p>Vest dvi matricas <b>skaiciais</b>. Atskirus elementus atskirt tarpais, eilutes - newline'ais.</p>
+	<hr />
+	
+	
+	<textarea id="pirmas" rows=6 onfocus="this.select();this.focus()"></textarea>
+	<textarea id="antras" rows=6 onfocus="this.select();this.focus()"></textarea>
+	<button id="btn" onclick="solve()">Sudet</button>
+	<div id="ans"></div>
+</body>
+</html>

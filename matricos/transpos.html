@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>matricu transpozicija</title>
+	<style type="text/css">
+		table td{
+			vertical-align: middle;
+			text-align: center;
+			border: 1px solid black;
+		}
+		.chess{
+			background-color: rgb(255,255,255);
+		}
+	</style>
+	<script>
+	function isValidMatrix(mat){
+		var n, N = -1;
+		for(var i = 0; i < mat.length; i++){
+			n = mat[i].length;
+			if(N == -1)
+				N = n;
+			if(n != N)
+				return false
+		}
+		return true;
+	}
+	function solve(){
+		var temp = document.getElementById("matrix").value;
+		var t = temp.split("\n");
+		var tmp = [], row = [], matrix = [], result = [];
+		//alert(t);
+		for(var i = 0; i < t.length; i++){
+			tmp = t[i].split(" ");
+			row = [];
+			for(var j = 0; j < tmp.length; j++){
+				row.push(tmp[j]);
+			}
+			//alert(row);
+			matrix.push(row);
+		}
+		//alert(matrix);
+		
+		if(!isValidMatrix(matrix)){
+			alert("Netinkama matrica!");
+			return ;
+		}
+		for(var i = 0; i < matrix[0].length; i++){
+			tmp = [];
+			for(var j = 0; j < matrix.length; j++){
+				tmp.push(0);
+			}
+			result.push(tmp);
+		}
+		//alert(result);
+		
+		for(var i = 0; i < matrix.length; i++){
+			for(var j = 0; j < matrix[i].length; j++){
+				result[j][i] = matrix[i][j];
+			}
+		}
+		//alert(result);
+		
+		
+		//==============Generate HTML===========================
+		
+		var htmlCode = "<hr />\n";
+		htmlCode += "<table cellspacing=0 cellpadding=10>\n"
+		for(var i = 0; i < result.length; i++){
+			htmlCode += "<tr>\n";
+			for(var j = 0; j < result[i].length; j++){
+				htmlCode += "<td";
+				if((i+j)%2 == 0)
+					htmlCode += " class=\"chess\"";
+				htmlCode += ">" + result[i][j] + "</td>\n";
+			}
+			htmlCode += "</tr>\n";
+		}
+		htmlCode += "</table>\n"
+		
+		//======================================================
+		//alert(htmlCode);
+		document.getElementById("ans").innerHTML = htmlCode;
+		
+		return ;
+	}
+	
+	
+	</script>
+</head>
+<body>
+	<p align="right"><a href="../index.html">Home</a></p>
+	<p>Vest matrica <b>skaiciais</b>. Atskirus elementus atskirt tarpais, eilutes - newline'ais.</p>
+	<hr />
+	
+	
+	<textarea id="matrix" rows=6 onfocus="this.select();this.focus()"></textarea>
+	<button id="btn" onclick="solve()">Transponuot</button>
+	<div id="ans"></div>
+</body>
+</html>

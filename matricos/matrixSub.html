@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-	<title>matricu daugyba</title>
+	<title>matricu atimtis</title>
 	<style type="text/css">
 		table td{
 			vertical-align: middle;
@@ -76,8 +76,8 @@
 		c2 = matrix2[0].length;
 		/*alert(r1+"x"+c1);
 		alert(r2+"x"+c2);*/
-		if(c1 != r2){
-			alert("Tokiu matricu sudaugint neimanoma (neatitinka matmenys)!");
+		if(!(r1 == r2 && c1 == c2)){
+			alert("Tokiu matricu atimt neimanoma (neatitinka matmenys)!");
 			return ;
 		}
 		//alert(r1+"x"+c1+" ir "+r2+"x"+c2);
@@ -85,7 +85,10 @@
 		for(var i = 0; i < r1; i++){
 			tmp = [];
 			for(var j = 0; j < c2; j++){
-				tmp.push(mult(matrix1, matrix2, i, j));
+				//tmp.push(mult(matrix1, matrix2, i, j));
+				matrix1[i][j] -= 0;
+				matrix2[i][j] -= 0;
+				tmp.push(matrix1[i][j]-matrix2[i][j]);
 			}
 			result.push(tmp);
 		}
@@ -125,11 +128,7 @@
 	
 	<textarea id="pirmas" rows=6 onfocus="this.select();this.focus()"></textarea>
 	<textarea id="antras" rows=6 onfocus="this.select();this.focus()"></textarea>
-	<button id="btn" onclick="solve()">Daugint</button>
+	<button id="btn" onclick="solve()">Sudet</button>
 	<div id="ans"></div>
-	
-	<p align="center"><img src="matrix.jpg" /></p>
-	<h3 align="left">Fun fact:</h3>
-	<p align="left">Jei matrica <img src="fibMatrix.jpg" height=40 /> vis dauginsi is saves, virsutiniam kairiam kampe generuosis Fibonacio skaiciai :)</p>
 </body>
 </html>
