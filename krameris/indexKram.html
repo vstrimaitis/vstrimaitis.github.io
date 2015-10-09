@@ -76,6 +76,10 @@
 			alert("Matricos dimensijos nesueina!");
 			return ;
 		}
+		if(matrix.length > 10){
+			alert("Matrica per didele!");
+			return ;
+		}
 		var D = [];
 		for(var i = 0; i <= matrix.length; i++)
 			D.push(0);
