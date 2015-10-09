@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>krameris</title>
+	<script>
+	
+	function calculateDet(mat){
+		if(mat.length == 1)
+			return mat[0][0];
+		if(mat.length == 2)
+			return mat[0][0]*mat[1][1] - mat[0][1]*mat[1][0];
+		var newMat = [], row = [], ans = 0;
+		for(var k = 0; k < mat[0].length; k++){				// skleisim pgl. pirma eilute
+			newMat = [];
+			for(var i = 1; i < mat.length; i++){
+				row = [];
+				for(var j = 0; j < mat[0].length; j++){
+					if(j != k)
+						row.push(mat[i][j]);
+				}
+				newMat.push(row);
+			}
+			if(k%2 == 0)
+				ans += mat[0][k] * calculateDet(newMat);
+			else
+				ans -= mat[0][k] * calculateDet(newMat);
+		}
+		return ans;
+	}
+	
+	function det(mat, ind){
+		var newMat = [];
+		var currRow = [];
+		if(ind == 0){
+			for(var i = 0; i < mat.length; i++){
+				currRow = [];
+				for(var j = 0; j < mat[i].length-1; j++){
+					currRow.push(mat[i][j]);
+				}
+				newMat.push(currRow);
+			}
+		}else
+			//ind--;
+			for(var i = 0; i < mat.length; i++){
+				currRow = [];
+				for(var j = 0; j < mat[i].length-1; j++){
+					if(j == ind-1)
+						currRow.push(mat[i][mat[i].length-1]);
+					else	
+						currRow.push(mat[i][j]);
+				}
+				newMat.push(currRow);
+			}
+		//alert(calculateDet(newMat));
+		return calculateDet(newMat);
+		
+	}
+	
+	
+	function isValid(mat){
+		var n = mat.length;
+		var m = mat[0].length;
+		return (m == n+1);
+	}
+	
+	function solve(){
+		var duom = document.getElementById("matrix").value;
+		var rowStr = duom.split("\n");
+		var row = [], matrix = [], ans = [];
+		for(var i = 0; i < rowStr.length; i++){
+			row = rowStr[i].split(" ");
+			matrix.push(row);
+		}
+		if(!isValid(matrix)){
+			alert("Matricos dimensijos nesueina!");
+			return ;
+		}
+		var D = [];
+		for(var i = 0; i <= matrix.length; i++)
+			D.push(0);
+		for(var i = 0; i <= matrix.length; i++)
+			D[i] = det(matrix, i);
+		
+		if(D[0] == 0){
+			alert("D = 0. Krameriui tokia sistema per sunki :)");
+			return ;
+		}
+		for(var i = 1; i <= matrix.length; i++)
+			ans.push(D[i]/D[0]);
+		
+		//================= HTML'o generavimas ================================
+		var htmlCode = "<hr />\n";
+		htmlCode += "<table border=0 cellspacing=0>\n";
+		htmlCode += "\t<tr>\n";
+		htmlCode += "\t\t<td id=\"mainD\" colspan=2 align = \"center\">D = " + D[0] + "</td>\n";
+		htmlCode += "\t</tr>\n";
+		for(var i = 0; i < matrix.length; i++){
+			//htmlCode += "<p>x<sub>" + (i+1) + "</sub> = " + ans[i] + "</p>\n";
+			htmlCode += "\t<tr>\n";
+			htmlCode += "\t\t<td class=\"dets\">D<sub>"+(i+1)+"</sub> = "+D[i+1]+"</td>\n";
+			htmlCode += "\t\t<td class=\"xs\">x<sub>"+(i+1)+"</sub> = "+ans[i]+"</td>\n";
+			htmlCode += "\t</tr>\n";
+		}
+		htmlCode += "</table>\n<hr />\n";
+		document.getElementById("ans").innerHTML = htmlCode;
+		
+		return ;
+	}
+	</script>
+	<style type="text/css">
+	textarea{
+		font-size: 30px;
+	}
+	#ans{
+		font-size: 20px;
+	}
+	#ans .dets{
+		padding-right: 15px;
+		text-align: right;
+	}
+	#ans .xs{
+		padding-left: 15px;
+		text-align: left;
+		border-left: 2px solid black;
+	}
+	#ans #mainD{
+		border-bottom: 2px solid black;
+	}
+	</style>
+</head>
+<body>
+	<p align="right"><a href="../index.html">Home</a></p>
+	<p>Ivest lygtciu sistemos matrica (vienoj matricoj ir koeficientai, ir laisvieji nariai). Lygciu turi but tiek, kiek ir<br />nezinomuju (kitaip tariant, matricoje stulpeliu turi but vienu daugiau, nei eiluciu).</p>
+	<p>Elementus atskirt tarpais, o eilutes newline'ais. Taip pat nepalikt random tarpu ir newline'u. Jei bus ivesta kitaip, programa nesupras (nes tingiu daryt, kad suprastu :)</p>
+	<textarea id="matrix" onfocus="this.select();this.focus()" rows=10 cols = 20>Matrica</textarea>
+	<button id="btn" onclick="solve()">Sprest</button>
+	
+	<div id="ans" />
+</body>
+</html>
