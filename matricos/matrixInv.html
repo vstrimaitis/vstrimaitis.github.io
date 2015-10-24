@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>atvirkstines matricos</title>
+	<style type="text/css">
+		table td{
+			vertical-align: middle;
+			text-align: center;
+			border: 1px solid black;
+		}
+		.chess{
+			background-color: rgb(255,255,255);
+		}
+	</style>
+	<script>
+		function getDeterminant(m){
+			if(m.length == 1)
+				return m[0][0];
+			if(m.length == 2)
+				return m[0][0]*m[1][1] - m[0][1]*m[1][0];
+		
+			var newMatrix = [], row = [], ans = 0;
+			for(var k = 0; k < m[0].length; k++){
+				newMatrix = [];
+				for(var i = 1; i < m.length; i++){
+					row = [];
+					for(var j = 0; j < m[i].length; j++){
+						if(j != k)
+							row.push(m[i][j]);
+					}
+					newMatrix.push(row);
+				}
+				if(k % 2 == 0){
+					ans += m[0][k] * getDeterminant(newMatrix);
+				}else{
+					ans -= m[0][k] * getDeterminant(newMatrix);
+				}
+			}
+			return ans;
+		}
+		
+		function getAdjugateMatrix(m){
+			var ans = [], row = [], ansRow = [], newMatrix = [], tmp;
+			for(var i = 0; i < m.length; i++){
+				ansRow = [];
+				for(var j = 0; j < m[i].length; j++){
+					newMatrix = [];
+					for(var k = 0; k < m.length; k++){
+						row = [];
+						for(var l = 0; l < m[k].length; l++){
+							if(i != k && j != l){
+								//alert("Pushing '"+m[k][l]+"'");
+								row.push(m[k][l]);
+							}
+						}
+						if(row.length != 0)
+							newMatrix.push(row);
+					}
+					//alert(newMatrix);
+					tmp = getDeterminant(newMatrix);
+					if((i+j)%2 == 1)
+						tmp *= -1;
+					ansRow.push(tmp);
+				}
+				ans.push(ansRow);
+			}
+			return ans;
+		}
+		
+		function transposeMatrix(m){
+			var row = [], ans = [];
+			for(var j = 0; j < m[0].length; j++){
+				row = [];
+				for(var i = 0; i < m.length; i++)
+					row.push(m[i][j]);
+				ans.push(row);
+			}
+			return ans;
+		}
+		
+		function isValidMatrix(m){
+			var l = m.length;
+			for(var i = 0; i < m.length; i++)
+				if(m[i].length != l)
+					return false;
+			return true;
+		}
+	
+		function solve(){
+			var rawInput = document.getElementById("matrix").value;
+			var rows = rawInput.split("\n");
+			var elements = [], row = [], matrix = [], ansMatrix = [], determinant;
+			for(var i = 0; i < rows.length; i++){
+				elements = rows[i].split(" ");
+				row = [];
+				for(var j = 0; j < elements.length; j++){
+					if(!isNaN(elements[j]) && elements[j] != "")
+						row.push(elements[j]);
+				}
+				matrix.push(row);
+			}
+			if(!isValidMatrix(matrix)){
+				alert("Matricos matmenys negeri!");
+				return ;
+			}
+			//alert(getDeterminant(matrix));
+			ansMatrix = transposeMatrix( getAdjugateMatrix(matrix) );
+			determinant = getDeterminant(matrix);
+			for(var i = 0; i < ansMatrix.length; i++){
+				for(var j = 0; j < ansMatrix[i].length; j++){
+					ansMatrix[i][j] /= determinant;
+				}
+			}
+			
+			//====================HTML generation============================
+			var htmlCode = "<hr />\n";
+			htmlCode += "<table cellspacing = 0 cellpadding = 5>\n";
+			for(var i = 0; i < ansMatrix.length; i++){
+				htmlCode += "\t<tr>\n";
+				for(var j = 0; j < ansMatrix[i].length; j++){
+					htmlCode += "\t\t<td>"+ansMatrix[i][j]+"</td>\n";
+				}
+				htmlCode += "\t</tr>\n";
+			}
+			htmlCode += "</table>\n";
+			htmlCode += "<hr />\n";
+			//=================================================================
+			document.getElementById("ans").innerHTML = htmlCode;
+		}
+	</script>
+</head>
+<body>
+	<p align="right"><a href="../index.html">Home</a></p>
+	<p>Vest matrica <b>skaiciais</b>. Atskirus elementus atskirt tarpais, eilutes - newline'ais.</p>
+	<hr />
+
+	<textarea id="matrix" rows=6 onfocus="this.select();this.focus()"></textarea>
+	<button id="btn" onclick="solve()">Gaut atvirkstine</button>
+	<div id="ans"></div>
+</body>
+</html>
