@@ -1,0 +1,13 @@
+psql:tests.sql:3: ERROR:  new row for relation "programming_language" violates check constraint "ck_programminglanguage_id"
+psql:tests.sql:7: ERROR:  new row for relation "user" violates check constraint "ck_user_id"
+psql:tests.sql:11: ERROR:  new row for relation "user" violates check constraint "ck_user_dob"
+psql:tests.sql:15: ERROR:  The password hash is invalid! Please use SHA-256.
+psql:tests.sql:19: ERROR:  new row for relation "user_skills" violates check constraint "ck_userskills_proficiency"
+psql:tests.sql:21: ERROR:  new row for relation "user_skills" violates check constraint "ck_userskills_proficiency"
+psql:tests.sql:25: ERROR:  new row for relation "ratable_entity" violates check constraint "ck_ratableentity_id"
+psql:tests.sql:29: ERROR:  new row for relation "ratable_entity" violates check constraint "ck_ratableentity_publishdate"
+psql:tests.sql:33: ERROR:  new row for relation "rated_entities" violates check constraint "ck_ratedentities_rating"
+psql:tests.sql:36: ERROR:  new row for relation "rated_entities" violates check constraint "ck_ratedentities_rating"
+psql:tests.sql:41: ERROR:  duplicate key value violates unique constraint "user_email"
+DETAIL:  Key (email)=(some@email.com) already exists.
+psql:tests.sql:47: ERROR:  A comment cannot be published before a post.

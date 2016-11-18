@@ -1,0 +1,590 @@
+<html>
+    <head>
+        <title>DBVS 2 laboratorinis darbas</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="styles/main.css">
+        <!-- Prism -->
+        <link rel="stylesheet" href="styles/prism-default.css">
+        <script src="js/prism-default.js"></script>
+        
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <center>
+                <h1>DBVS 2 laboratorinis darbas: programavimo projektų idėjų dalinimosi svetainės duomenų bazė</h1>
+                <h3>Autorius: Vytautas Strimaitis, 2k, 5 gr., Programų sistemos, MIF VU 2016</h3>
+            </center>
+            
+            <section id="part1">
+                <div class="row">
+                    <h1 align="center">Pirmoji dalis</h1>
+                    <div id="er" class="col-md-6">
+                        <h2 align="center">ER diagrama</h2>
+                        <img class="img-responsive" width="100%" src="img/ER.svg" />        
+                    </div>
+                    <div id="db_rel" class="col-md-6">
+                        <h2 align="center">Duomenų bazės reliacinė schema</h2>
+                        <img class="img-responsive" width="100%" src="img/DB_relational.svg" />
+                    </div>
+                </div>
+            </section>
+            
+            <section id="part2">
+                <div class="row">
+                    <h1 align="center">Antroji dalis</h1>
+                    <div class="col-md-6">
+                        <center>
+                            <a style="color:black;" class="btn btn-link" role="button" href="src/src.zip">
+                                <h2><span class="glyphicon glyphicon-download"></span>Duomenų bazės sukūrimas</h2>
+                            </a>
+                        </center>
+                        <div class="accordion" id="source_block">
+                            <button class="src-btn btn btn-sm btn-success" data-toggle="collapse" data-target="#create_tables" data-parent="#source_block">Lentelės</button>
+                            <button class="src-btn btn btn-sm btn-success" data-toggle="collapse" data-target="#create_indexes" data-parent="#source_block">Indeksai</button>
+                            <button class="src-btn btn btn-sm btn-success" data-toggle="collapse" data-target="#create_views" data-parent="#source_block">Virtualios lentelės</button>
+                            <button class="src-btn btn btn-sm btn-success" data-toggle="collapse" data-target="#create_triggers" data-parent="#source_block">Trigeriai</button>
+                            <button class="src-btn btn btn-sm btn-info" data-toggle="collapse" data-target="#insert_test_data" data-parent="#source_block">Užpildymas</button> <br/>
+                            <button class="src-btn btn btn-sm btn-info" data-toggle="collapse" data-target="#tests" data-parent="#source_block">Testai</button>
+                            <button class="src-btn btn btn-sm btn-danger" data-toggle="collapse" data-target="#drop_triggers" data-parent="#source_block">Trigeriai</button>
+                            <button class="src-btn btn btn-sm btn-danger" data-toggle="collapse" data-target="#drop_indexes" data-parent="#source_block">Indeksai</button>
+                            <button class="src-btn btn btn-sm btn-danger" data-toggle="collapse" data-target="#drop_views" data-parent="#source_block">Virtualios lentelės</button>
+                            <button class="src-btn btn btn-sm btn-danger" data-toggle="collapse" data-target="#drop_tables" data-parent="#source_block">Lentelės</button>
+
+                            <div class="panel">
+                                <div id="create_tables" class="collapse">
+                                    <pre class="line-numbers" data-src="src/create_tables.sql" />
+                                </div>
+
+                                <div id="create_indexes" class="collapse">
+                                    <pre class="line-numbers" data-src="src/create_indexes.sql" />
+                                </div>
+
+                                <div id="create_views" class="collapse">
+                                    <pre class="line-numbers" data-src="src/create_views.sql" />
+                                </div>
+
+                                <div id="create_triggers" class="collapse">
+                                    <pre class="line-numbers" data-src="src/create_triggers.sql" />
+                                </div>
+
+                                <div id="insert_test_data" class="collapse">
+                                    <pre class="line-numbers" data-src="src/inserts.sql" />
+                                </div>
+
+                                <div id="tests" class="collapse">
+                                    <pre class="line-numbers" data-src="src/tests.sql" />
+                                </div>
+
+                                <div id="drop_triggers" class="collapse">
+                                    <pre class="line-numbers" data-src="src/drop_triggers.sql" />
+                                </div>
+
+                                <div id="drop_indexes" class="collapse">
+                                    <pre class="line-numbers" data-src="src/drop_indexes.sql" />
+                                </div>
+
+                                <div id="drop_views" class="collapse">
+                                    <pre class="line-numbers" data-src="src/drop_views.sql" />
+                                </div>
+
+                                <div id="drop_tables" class="collapse">
+                                    <pre class="line-numbers" data-src="src/drop_tables.sql" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        
+                    <div class="col-md-6">
+                        <h2 align="center">Duomenų bazės kūrimo rezultatas</h2>
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#programming_language">Programming_Language</a></li>
+                            <li><a data-toggle="tab" href="#user">User</a></li>
+                            <li><a data-toggle="tab" href="#user_skills">User_Skills</a></li>
+                            <li><a data-toggle="tab" href="#ratable_entity">Ratable_Entity</a></li>
+                            <li><a data-toggle="tab" href="#rated_entities">Rated_Entities</a></li>
+                            <li><a data-toggle="tab" href="#post">Post</a></li>
+                            <li><a data-toggle="tab" href="#saved_posts">Saved_Posts</a></li>
+                            <li><a data-toggle="tab" href="#comment">Comment</a></li>
+                            <li><a style="color:red" data-toggle="tab" href="#test_results">Testų rezultatai</a></li>
+                        </ul>
+                        <div id="db_tables" class="tab-content">
+                            <div id="programming_language" class="tab-pane fade in active">
+                                <table class="table table-hover table-condensed table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>C</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>C++</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Python</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>C#</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>JAVA</td>
+                                        </tr>
+                                        <tr>
+                                            <td>6</td>
+                                            <td>Javascript</td>
+                                        </tr>
+                                        <tr>
+                                            <td>7</td>
+                                            <td>Ruby</td>
+                                        </tr>
+                                        <tr>
+                                            <td>8</td>
+                                            <td>PHP</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="user" class="tab-pane fade">
+                                <table class="table table-hover table-condensed table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 5%">Id</th>
+                                            <th style="width: 20%">Email</th>
+                                            <th style="width: 15%">Username</th>
+                                            <th style="width: 15%">First_Name</th>
+                                            <th style="width: 15%">Last_Name</th>
+                                            <th style="width: 20%">Password</th>
+                                            <th style="width: 10%">DOB</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>john.doe@gmail.com</td>
+                                            <td>johnnyboy</td>
+                                            <td>John</td>
+                                            <td>Doe</td>
+                                            <td>5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8</td>
+                                            <td>1970-01-13</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>fake@gmail.com</td>
+                                            <td>vstrimaitis</td>
+                                            <td>Vytautas</td>
+                                            <td>Strimaitis</td>
+                                            <td>5bf6c973b85757fda1cac3f47ec85ae7158dd00a3d1de34203e2860078a3d89e</td>
+                                            <td>1997-02-21</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>lord123@yahoo.com</td>
+                                            <td>mastahOfCode</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>24145fd494db7255954cb75ee69065bceb92ea99d5da9f9185b976778cfe3a88</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>default@email.com</td>
+                                            <td>user4</td>
+                                            <td>Default</td>
+                                            <td>User</td>
+                                            <td>5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8</td>
+                                            <td>1996-01-01</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="user_skills" class="tab-pane fade">
+                                <table class="table table-hover table-condensed table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>User_Id</th>
+                                            <th>Programming_Language_Id</th>
+                                            <th>Proficiency</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td>0</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>1</td>
+                                            <td>3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>4</td>
+                                            <td>2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>5</td>
+                                            <td>0</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>4</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>2</td>
+                                            <td>5</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>3</td>
+                                            <td>2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>4</td>
+                                            <td>4</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>5</td>
+                                            <td>1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>6</td>
+                                            <td>2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>8</td>
+                                            <td>1</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="ratable_entity" class="tab-pane fade">
+                                <table class="table table-hover table-condensed table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>User_Id</th>
+                                            <th>Publish_Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td>2016-11-15</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>2</td>
+                                            <td>2016-11-14</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>3</td>
+                                            <td>2016-11-16</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>3</td>
+                                            <td>2016-10-05</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>1</td>
+                                            <td>2016-11-15</td>
+                                        </tr>
+                                        <tr>
+                                            <td>6</td>
+                                            <td>2</td>
+                                            <td>2016-11-16</td>
+                                        </tr>
+                                        <tr>
+                                            <td>7</td>
+                                            <td>2</td>
+                                            <td>2016-11-15</td>
+                                        </tr>
+                                        <tr>
+                                            <td>8</td>
+                                            <td>3</td>
+                                            <td>2016-11-15</td>
+                                        </tr>
+                                        <tr>
+                                            <td>9</td>
+                                            <td>1</td>
+                                            <td>2016-11-14</td>
+                                        </tr>
+                                        <tr>
+                                            <td>10</td>
+                                            <td>2</td>
+                                            <td>2016-11-10</td>
+                                        </tr>
+                                        <tr>
+                                            <td>11</td>
+                                            <td>3</td>
+                                            <td>2016-10-05</td>
+                                        </tr>
+                                        <tr>
+                                            <td>12</td>
+                                            <td>1</td>
+                                            <td>2016-11-16</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="rated_entities" class="tab-pane fade">
+                                <table class="table table-hover table-condensed table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Entity_Id</th>
+                                            <th>User_Id</th>
+                                            <th>Rating</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>3</td>
+                                            <td>-1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>1</td>
+                                            <td>-1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>1</td>
+                                            <td>-1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>2</td>
+                                            <td>-1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>3</td>
+                                            <td>1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>8</td>
+                                            <td>1</td>
+                                            <td>-1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>9</td>
+                                            <td>2</td>
+                                            <td>1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>10</td>
+                                            <td>1</td>
+                                            <td>-1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>10</td>
+                                            <td>2</td>
+                                            <td>-1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>11</td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>11</td>
+                                            <td>3</td>
+                                            <td>-1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>12</td>
+                                            <td>3</td>
+                                            <td>-1</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="post" class="tab-pane fade">
+                                <table class="table table-hover table-condensed table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 5%">Id</th>
+                                            <th style="width: 20%">Title</th>
+                                            <th style="width: 75%">Content</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>My first post</td>
+                                            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam viverra laoreet justo, eget porttitor lorem. Nunc luctus sem eu auctor placerat. In elit nisi, gravida vel semper in, rhoncus et nisl. Praesent rutrum dui ac faucibus facilisis. Ut hendrerit faucibus lorem sed viverra. In interdum, mauris eget luctus tempor, arcu mauris placerat risus, sit amet sagittis mauris nibh vel mi. Curabitur rhoncus scelerisque commodo. Quisque id eros leo.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>How to post</td>
+                                            <td>content content content...</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Third time's the charm say scientists?!</td>
+                                            <td>Not really, this was just clickbait xD</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>*Insert clickbait title here*</td>
+                                            <td>Useles info...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="saved_posts" class="tab-pane fade">
+                                <table class="table table-hover table-condensed table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Post_Id</th>
+                                            <th>User_Id</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>2</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="comment" class="tab-pane fade">
+                                <table class="table table-hover table-condensed table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 5%">Id</th>
+                                            <th style="width: 10%">Post_Id</th>
+                                            <th style="width: 85%">Content</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>1</td>
+                                            <td>LOL :D</td>
+                                        </tr>
+                                        <tr>
+                                            <td>6</td>
+                                            <td>1</td>
+                                            <td>xDDDD</td>
+                                        </tr>
+                                        <tr>
+                                            <td>7</td>
+                                            <td>1</td>
+                                            <td>Great first post :)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>8</td>
+                                            <td>2</td>
+                                            <td>one does not simply comment well...</td>
+                                        </tr>
+                                        <tr>
+                                            <td>9</td>
+                                            <td>2</td>
+                                            <td>another post, another comment</td>
+                                        </tr>
+                                        <tr>
+                                            <td>10</td>
+                                            <td>4</td>
+                                            <td>this is clickbait >:(</td>
+                                        </tr>
+                                        <tr>
+                                            <td>11</td>
+                                            <td>4</td>
+                                            <td>this is not clickbaity at all, y u so engri :(</td>
+                                        </tr>
+                                        <tr>
+                                            <td>12</td>
+                                            <td>3</td>
+                                            <td>silly title</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="test_results" class="tab-pane fade">
+                                <pre class="line-numbers" data-src="src/test_results.txt" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </section>
+
+            <section id="part3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 align="center">Trečioji dalis</h1>
+                        <h2 align="center">Programa</h2>
+                        <p>To be added...</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </body>
+</html>
