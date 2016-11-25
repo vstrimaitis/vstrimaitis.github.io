@@ -15,7 +15,7 @@ CREATE TABLE vyst2902.User
     Username    VARCHAR(100),
     First_Name  VARCHAR(30),
     Last_Name   VARCHAR(30),
-    Password    VARCHAR(64) 	NOT NULL, -- use SHA-256
+    Password    CHAR(64)	 	NOT NULL, -- use SHA-256
     DOB         DATE                        CONSTRAINT CK_User_DOB
                                             CHECK (DOB <= NOW() - INTERVAL '5 years'),
     
@@ -42,7 +42,7 @@ CREATE TABLE vyst2902.Ratable_Entity
 (
     Id              SERIAL      NOT NULL    CONSTRAINT CK_RatableEntity_Id
                                             CHECK (Id > 0),
-    User_Id         INTEGER     NOT NULL,
+    User_Id         INTEGER,
     Publish_Date    DATE        NOT NULL    CONSTRAINT CK_RatableEntity_PublishDate
                                             CHECK (Publish_Date <= NOW()),
     
