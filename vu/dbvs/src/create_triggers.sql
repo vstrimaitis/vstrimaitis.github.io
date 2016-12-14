@@ -29,19 +29,20 @@ FOR EACH ROW EXECUTE PROCEDURE Generate_Unique_Username();
 -- Trigger for inserting a new post
 CREATE FUNCTION Insert_Post() RETURNS trigger AS $$
 DECLARE
-    temp_id INTEGER;
+	temp_id INTEGER;
 BEGIN
-    INSERT INTO vyst2902.Ratable_Entity (User_Id, Publish_Date) VALUES
-        (NEW.User_Id, NEW.Publish_Date)
-        RETURNING Id INTO temp_id;
-    INSERT INTO vyst2902.Post VALUES
-        (temp_id, NEW.Title, NEW.Content);
-    RETURN NEW;
+	INSERT INTO vyst2902.Ratable_Entity (User_Id, Publish_Date) VALUES
+		(NEW.User_Id, NEW.Publish_Date)
+		RETURNING Id INTO temp_id;
+	INSERT INTO vyst2902.Post VALUES
+		(temp_id, NEW.Title, NEW.Content);
+	NEW.Id := temp_id;
+	return NEW;
 END;
 $$ LANGUAGE PLPGSQL;
 
 CREATE TRIGGER Post_on_insert INSTEAD OF INSERT ON vyst2902.Posts
-    FOR EACH ROW EXECUTE PROCEDURE Insert_Post();
+	FOR EACH ROW EXECUTE PROCEDURE Insert_post();
     
 -- Trigger for updating a post
 CREATE FUNCTION Update_Post() RETURNS trigger AS $$
