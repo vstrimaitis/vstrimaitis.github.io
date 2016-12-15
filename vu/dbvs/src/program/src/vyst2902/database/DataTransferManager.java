@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.ZoneId;
+//import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -15,7 +15,7 @@ import java.util.Date;
 import vyst2902.dataTransferObjects.*;
 
 public class DataTransferManager {
-	private static final String URL = "jdbc:postgresql://localhost:5432/";
+	private static final String URL = "jdbc:postgresql://pgsql2.mif/";
 	private User currentUser;
 	private Connection connection;
 	
@@ -312,7 +312,7 @@ public class DataTransferManager {
 			throw new SQLException("You are not logged in");
 		stmt_insertPost.setString(1, post.getTitle());
 		stmt_insertPost.setString(2, post.getContent());
-		stmt_insertPost.setDate(3, java.sql.Date.valueOf(post.getPublishDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()));
+		stmt_insertPost.setDate(3, new java.sql.Date(post.getPublishDate().getTime()));
 		stmt_insertPost.setInt(4, currentUser.getId());
 		ResultSet ret = stmt_insertPost.executeQuery();
 		if(!ret.next())

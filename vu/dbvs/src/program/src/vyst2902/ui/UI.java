@@ -12,9 +12,9 @@ import vyst2902.database.DataTransferManager;
 
 public class UI {
 	public static void start() throws ClassNotFoundException, SQLException{
-        DataTransferManager mgr = new DataTransferManager("coding_ideas", "postgres", "root");
+        DataTransferManager mgr = new DataTransferManager("studentu", "vyst2902", "vyst2902");
 		Scanner in = new Scanner(System.in);
-		in.useDelimiter("[\r\n]+");
+		//in.useDelimiter("[\r\n]+");
 		showHeader();
 		boolean isRunning = true;
 		while(isRunning){
@@ -42,6 +42,8 @@ public class UI {
 		if(post == null)
 			return;
 		Comment comment = getCommentFromList(mgr, in, post.getId());
+		if(comment == null)
+			return;
 		try{
 			mgr.deleteComment(comment);
 			System.out.println("Comment deleted successfully");
