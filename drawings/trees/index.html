@@ -7,13 +7,15 @@
     <script type="application/javascript" src="js/lib/jquery-3.1.1.js"></script>
     <script type="application/javascript" src="js/lib/paper-full.js"></script>
     <script type="application/javascript" src="js/branch.js"></script>
+    <script type="application/javascript" src="js/tree.js"></script>
     <script type="application/javascript" src="js/drawing.js"></script>
     <script type="application/javascript" src="js/main.js"></script>
 </head>
     <body>
-        <canvas id="mainCanvas"></canvas>
-        <label id="angleValue">0</label>
-        <input type="range" value="40" min="0" max="180" id="angleSlider" />
-        <button onclick="saveCanvas()">Save image...</button>
+        <canvas style="background-color: white" id="mainCanvas"></canvas>
+        <!--<label id="angleValue">0</label>
+        <input type="range" value="40" min="0" max="180" id="angleSlider" />-->
+        <label><b>Left click</b> to spawn a tree, <b>Right click</b> to clear canvas. You can also <a id="saveButton" download="Trees.jpg" href="#">save</a> the image.</label>
+        
     </body>
 </html>
