@@ -31,9 +31,13 @@ function onLeftClick(e){
     var params = {
         base_x: e.pageX,
         base_y: e.pageY,
-        shrink_factor: getShrinkFactor(e.pageY), // s(y) = A/(y+d1) + B
-        trunk_length: getTrunkLength(e.pageY)                                                     // l(y) = C/(y+d2) + D
+        //shrink_factor: getShrinkFactor(e.pageY), // s(y) = A/(y+d1) + B
+        //trunk_length: getTrunkLength(e.pageY)                                                     // l(y) = C/(y+d2) + D
     };
+    if(document.getElementById("treeSizeYDependencyBox").checked){
+        params.shrink_factor = getShrinkFactor(e.pageY);
+        params.trunk_length = getTrunkLength(e.pageY);
+    }
     //alert(e.pageY+": "+getShrinkFactor(e.pageY)+", "+getTrunkLength(e.pageY));
     var tree = new Tree(params);
     console.log(JSON.stringify(tree));
