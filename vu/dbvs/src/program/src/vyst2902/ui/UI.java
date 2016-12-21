@@ -11,18 +11,22 @@ import vyst2902.dataTransferObjects.*;
 import vyst2902.database.DataTransferManager;
 
 public class UI {
-	public static void start() throws ClassNotFoundException, SQLException{
-        DataTransferManager mgr = new DataTransferManager("studentu", "vyst2902", "vyst2902");
-		Scanner in = new Scanner(System.in);
-		//in.useDelimiter("[\r\n]+");
+	private DataTransferManager mgr;
+	private Scanner in;
+	
+	public UI(String dbName, String login, String password) throws SQLException, ClassNotFoundException{
+		mgr = new DataTransferManager(dbName, login, password);
+		in = new Scanner(System.in);
+	}
+	public void start() throws ClassNotFoundException, SQLException{
 		showHeader();
 		boolean isRunning = true;
 		while(isRunning){
 			try{
 				if(mgr.isLoggedIn())
-					isRunning = showMenuLoggedIn(mgr, in);
+					isRunning = showMenuLoggedIn();
 				else
-					isRunning = showMenuLoggedOut(mgr, in);
+					isRunning = showMenuLoggedOut();
 			} catch(InputMismatchException e){
 				System.out.println("Invalid input!");
 				in.next();
@@ -37,11 +41,11 @@ public class UI {
 		in.close();
 	}
 	
-	private static void executeOptionDeleteComment(DataTransferManager mgr, Scanner in) throws SQLException{
-		Post post = getPostFromList(mgr, in);
+	private void executeOptionDeleteComment() throws SQLException{
+		Post post = getPostFromList();
 		if(post == null)
 			return;
-		Comment comment = getCommentFromList(mgr, in, post.getId());
+		Comment comment = getCommentFromList(post.getId());
 		if(comment == null)
 			return;
 		try{
@@ -52,13 +56,13 @@ public class UI {
 		}
 	}
 
-	private static void executeOptionDeletePost(DataTransferManager mgr, Scanner in) throws SQLException{
+	private void executeOptionDeletePost() throws SQLException{
 		if(!mgr.isLoggedIn()){
 			System.out.println("You are not logged in!");
 			return;
 		}
 		System.out.println("Select a post to delete:");
-		Post post = getPostFromList(mgr, in);
+		Post post = getPostFromList();
 		if(post == null){
 			System.out.println(TableConverter.convert(new Post[0]).toString());
 			return;
@@ -72,88 +76,88 @@ public class UI {
 		
 	}
 
-	private static void executeOptionUpdateComment(DataTransferManager mgr, Scanner in) throws SQLException{
+	private void executeOptionUpdateComment() throws SQLException{
 		if(!mgr.isLoggedIn()){
 			System.out.println("You are not logged in!");
 			return;
 		}
-		Post post = getPostFromList(mgr, in);
+		Post post = getPostFromList();
 		if(post == null)
 			return;
 		if(!mgr.canEditPost(post)){
 			System.out.println("This is not your post, you cannot edit it!");
 			return;
 		}
-		Comment comment = getCommentFromList(mgr, in, post.getId());
+		Comment comment = getCommentFromList(post.getId());
 		if(comment == null)
 			return;
 		if(!mgr.canEditComment(comment)){
 			System.out.println("This is not your comment, you cannot edit it!");
 			return;
 		}
-		Comment input = getCommentInput(mgr, in);
+		Comment input = getCommentInput();
 		mgr.updateComment(comment.getId(), input);
 		System.out.println("Comment edit was successful");
 	}
 
-	private static void executeOptionUpdatePost(DataTransferManager mgr, Scanner in) throws SQLException{
+	private void executeOptionUpdatePost() throws SQLException{
 		if(!mgr.isLoggedIn()){
 			System.out.println("You are not logged in!");
 			return;
 		}
-		Post post = getPostFromList(mgr, in);
+		Post post = getPostFromList();
 		if(post == null)
 			return;
 		if(!mgr.canEditPost(post)){
 			System.out.println("This is not your post, you cannot edit it!");
 			return;
 		}
-		Post input = getPostInput(mgr, in);
+		Post input = getPostInput();
 		mgr.updatePost(post.getId(), input);
 		System.out.println("Post edited successfully");
 	}
 
-	private static void executeOptionAddComment(DataTransferManager mgr, Scanner in) throws SQLException{
+	private void executeOptionAddComment() throws SQLException{
 		if(!mgr.isLoggedIn()){
 			System.out.println("You are not logged in!");
 			return;
 		}
-		Post post = getPostFromList(mgr, in);
+		Post post = getPostFromList();
 		if(post == null)
 			return;
-		Comment comment = getCommentInput(mgr, in);
+		Comment comment = getCommentInput();
 		mgr.addComment(comment, post.getId());
 		System.out.println("Comment added successfully");
 	}
 
-	private static void executeOptionAddPost(DataTransferManager mgr, Scanner in) throws SQLException{
+	private void executeOptionAddPost() throws SQLException{
 		if(!mgr.isLoggedIn()){
 			System.out.println("You are not logged in!");
 			return;
 		}
-		Post post = getPostInput(mgr, in);
+		Post post = getPostInput();
 		mgr.addPost(post);
 		System.out.println("Post added successfully");
 	}
 	
-	private static void executeOptionAddPostWithComment(DataTransferManager mgr, Scanner in) throws SQLException{
+	private void executeOptionAddPostWithComment() throws SQLException{
 		if(!mgr.isLoggedIn()){
 			System.out.println("You are not logged in!");
 			return;
 		}
-		Post post = getPostInput(mgr, in);
-		Comment comment = getCommentInput(mgr, in);
+		Post post = getPostInput();
+		Comment comment = getCommentInput();
 		mgr.addPostWithComment(post, comment);
 		System.out.println("Post and comment added successfully");
 	}
 	
-	private static Comment getCommentInput(DataTransferManager mgr, Scanner in){
+	private Comment getCommentInput(){
 		System.out.print("Content of the comment: ");
 		String content = in.nextLine();
 		return new Comment(mgr.getCurrentUserEmail(), content, new Date());
 	}
 	
-	private static Post getPostInput(DataTransferManager mgr, Scanner in){
+	private Post getPostInput(){
 		System.out.print("Title of the post: ");
 		String title = in.nextLine();
 		System.out.print("Content of the post: ");
@@ -161,7 +165,7 @@ public class UI {
 		return new Post(mgr.getCurrentUserEmail(), title, content, new Date());
 	}
 
-	private static void executeOptionLogin(DataTransferManager mgr, Scanner in){
+	private void executeOptionLogin(){
 		System.out.print("E-mail: ");
 		String email = in.nextLine();
 		System.out.print("Password: ");
@@ -176,47 +180,47 @@ public class UI {
 		}
 	}
 
-	private static Post getPostFromList(DataTransferManager mgr, Scanner in) throws SQLException{
+	private Post getPostFromList() throws SQLException{
 		Post[] posts = mgr.getPosts();
-        System.out.println(TableConverter.convert(posts).toString());
-        if(posts.length == 0)
-			return null;
-        Post post = null;
-        do{
-            System.out.print("Id of the selected post: ");
-            int id = in.nextInt(); in.nextLine();
-            post = mgr.getPost(id);
-        }while(post == null);
-        return post;
+		System.out.println(TableConverter.convert(posts).toString());
+		if(posts.length == 0)
+				return null;
+		Post post = null;
+		do{
+		    System.out.print("Id of the selected post: ");
+		    int id = in.nextInt(); in.nextLine();
+		    post = mgr.getPost(id);
+		}while(post == null);
+		return post;
 	}
 	
-	private static Comment getCommentFromList(DataTransferManager mgr, Scanner in, int postId) throws SQLException{
+	private Comment getCommentFromList(int postId) throws SQLException{
 		Comment[] comments = mgr.getComments(postId);
-        System.out.println(TableConverter.convert(comments).toString());
-        if(comments.length == 0)
-			return null;
-        Comment comment = null;
-        do{
-            System.out.print("Id of the selected comment: ");
-            int id = in.nextInt(); in.nextLine();
-            comment = mgr.getComment(postId, id);
-        }while(comment == null);
-        return comment;
+		System.out.println(TableConverter.convert(comments).toString());
+		if(comments.length == 0)
+				return null;
+		Comment comment = null;
+		do{
+		    System.out.print("Id of the selected comment: ");
+		    int id = in.nextInt(); in.nextLine();
+		    comment = mgr.getComment(postId, id);
+		}while(comment == null);
+		return comment;
 	}
 	
-	private static void executeOptionLogout(DataTransferManager mgr){
+	private void executeOptionLogout(){
 		if(!mgr.isLoggedIn())
 			return;
 		mgr.logout();
 		System.out.println("Logged out successfully!");
 	}
 	
-	private static void executeOptionGetPosts(DataTransferManager mgr, Scanner in) throws SQLException{
-        System.out.println(TableConverter.convert(mgr.getPosts()).toString());
+	private void executeOptionGetPosts() throws SQLException{
+		System.out.println(TableConverter.convert(mgr.getPosts()).toString());
 	}
 	
-	private static void executeOptionGetComments(DataTransferManager mgr, Scanner in) throws SQLException{
-		Post post = getPostFromList(mgr, in);
+	private void executeOptionGetComments() throws SQLException{
+		Post post = getPostFromList();
 		if(post == null)
 			return;
 		System.out.println(TableConverter.convert(mgr.getComments(post.getId())).toString());
@@ -231,7 +235,7 @@ public class UI {
 		System.out.println("                         /____/                                ");
 	}
 	
-	private static boolean showMenuLoggedOut(DataTransferManager mgr, Scanner in) throws SQLException{
+	private boolean showMenuLoggedOut() throws SQLException{
 		System.out.println(" 0. Exit program");
 		System.out.println(" 1. Log in");
 		System.out.println(" 2. View all posts");
@@ -245,13 +249,13 @@ public class UI {
 			result = false;
 			break;
 		case 1:
-			executeOptionLogin(mgr, in);
+			executeOptionLogin();
 			break;
 		case 2:
-			executeOptionGetPosts(mgr, in);
+			executeOptionGetPosts();
 			break;
 		case 3:
-			executeOptionGetComments(mgr, in);
+			executeOptionGetComments();
 			break;
 		default:
 			throw new InputMismatchException();
@@ -259,7 +263,7 @@ public class UI {
 		return result;
 	}
 	
-	private static boolean showMenuLoggedIn(DataTransferManager mgr, Scanner in) throws SQLException{
+	private boolean showMenuLoggedIn() throws SQLException{
 		System.out.println(" 0. Exit program");
 		System.out.println(" 1. Log out");
 		System.out.println(" 2. View all posts");
@@ -280,34 +284,34 @@ public class UI {
 			result = false;
 			break;
 		case 1:
-			executeOptionLogout(mgr);
+			executeOptionLogout();
 			break;
 		case 2:
-			executeOptionGetPosts(mgr, in);
+			executeOptionGetPosts();
 			break;
 		case 3:
-			executeOptionGetComments(mgr, in);
+			executeOptionGetComments();
 			break;
 		case 4:
-			executeOptionAddPost(mgr, in);
+			executeOptionAddPost();
 			break;
 		case 5:
-			executeOptionAddComment(mgr, in);
+			executeOptionAddComment();
 			break;
 		case 6:
-			executeOptionAddPostWithComment(mgr, in);
+			executeOptionAddPostWithComment();
 			break;
 		case 7:
-			executeOptionUpdatePost(mgr, in);
+			executeOptionUpdatePost();
 			break;
 		case 8:
-			executeOptionUpdateComment(mgr, in);
+			executeOptionUpdateComment();
 			break;
 		case 9:
-			executeOptionDeletePost(mgr, in);
+			executeOptionDeletePost();
 			break;
 		case 10:
-			executeOptionDeleteComment(mgr, in);
+			executeOptionDeleteComment();
 			break;
 		default:
 			throw new InputMismatchException();
