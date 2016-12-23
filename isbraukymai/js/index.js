@@ -65,7 +65,7 @@ window.onload = function(){
                     puzzle.push(splitLine);
             }
             $('#output').html(toTable(puzzle));
-            $('#searchButton').prop('disabled', false);
+            //$('#searchButton').prop('disabled', false);
         });
     });
 };
