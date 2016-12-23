@@ -2,17 +2,53 @@ var puzzle;
 var removalPattern = /[ \.\,]/g
 
 window.onload = function(){
+    function readUrl(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#srcImage').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $('#imageInput').change(function(){
+        readUrl(this);
+    });
+    $('#imageInput').change();
+
     $('#recognizeButton').on('click', function() {
         var $this = $(this);
-        var image = $('#imageInput').val();
-        
+        var image = document.getElementById('srcImage');
+        if(!image.hasAttribute('src')){
+            alert('No image selected!');
+            return;
+        }
+
         Tesseract.recognize(image, {lang: 'lit'}).progress(function(){
             $this.button('loading');
         }).then(function(result){
             console.log(result.text);
             console.log(result.text.replace(removalPattern, ''));
             $this.button('reset');
-            var lines = result.text.replace(removalPattern, '').replace(/[oO]/g, '0').split('\n');
+            var lines = result.text.replace(removalPattern, '');
+            if(/\d+/.test(lines)){
+                lines = lines.replace(/[oO]/g, '0');
+                lines = lines.replace(/[l]/g, '1');
+                lines = lines.replace(/[z]/g, '2');
+                lines = lines.replace(/[A]/g, '4');
+                lines = lines.replace(/[Ss]/g, '5');
+                lines = lines.replace(/[T]/g, '7');
+                lines = lines.replace(/[g]/g, '8');
+                lines = lines.replace(/[q]/g, '9');
+                if(/\D+/.test(lines.split('\n').join(''))){
+                    alert("Reading failed, please provide a better image :/");
+                    return;
+                }
+            }
+            lines = lines.split('\n');
             puzzle = [];
             for(var i = 0; i < lines.length; i++){
                 var splitLine = lines[i].split('');
@@ -61,7 +97,7 @@ function findWordCells(board, word){
                 return ans;
         }
     }
-    
+
     for(var i = 0; i < board.length-len; i++){
         for(var j = 0; j < board[i].length; j++){
             var ans = [];
@@ -73,7 +109,7 @@ function findWordCells(board, word){
             }
             if(ans.length === len)
                 return ans;
-            
+
             ans = [];
             for(var ii = i; ii < i + len; ii++){
                 if(board[ii][j] === wordRev[ii-i])
