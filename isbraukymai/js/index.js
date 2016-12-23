@@ -19,6 +19,15 @@ window.onload = function(){
     });
     $('#imageInput').change();
 
+    $('#inputWord').on('input', function(e){
+        var inputText = this.value;
+        if(inputText.length === 0 || puzzle.length === 0){
+            clearHighlight();
+            return;
+        }
+        findWord();
+    });
+
     $('#recognizeButton').on('click', function() {
         var $this = $(this);
         var image = document.getElementById('srcImage');
@@ -61,10 +70,14 @@ window.onload = function(){
     });
 };
 
-function findWord(){
+function clearHighlight(){
     for(var i = 0; i < puzzle.length; i++)
         for(var j = 0; j < puzzle[i].length; j++)
             $('#cell-'+i+'-'+j).removeClass('highlighted');
+}
+
+function findWord(){
+    clearHighlight();
     var word = document.getElementById('inputWord').value.toUpperCase();
     var res = findWordCells(puzzle, word);
     if(res.length > 0){
@@ -77,7 +90,7 @@ function findWordCells(board, word){
     var len = word.length;
     var wordRev = word.split('').reverse().join('');
     for(var i = 0; i < board.length; i++){
-        for(var j = 0; j < board[i].length-len; j++){
+        for(var j = 0; j < board[i].length-len+1; j++){
             var ans = [];
             for(var jj = j; jj < j + len; jj++){
                 if(board[i][jj] === word[jj-j])
@@ -98,7 +111,7 @@ function findWordCells(board, word){
         }
     }
 
-    for(var i = 0; i < board.length-len; i++){
+    for(var i = 0; i < board.length-len+1; i++){
         for(var j = 0; j < board[i].length; j++){
             var ans = [];
             for(var ii = i; ii < i + len; ii++){
@@ -125,7 +138,7 @@ function findWordCells(board, word){
 }
 
 function toTable(arr){
-    var html = '<table class="table table-condensed table-nonfluid">';
+    var html = '<table id="puzzleTable" class="table table-condensed table-nonfluid">';
     for(var i = 0; i < arr.length; i++){
         html += '<tr>';
         for(var j = 0; j < arr[i].length; j++){
