@@ -43,8 +43,11 @@ window.onload = function(){
 function initParameters(){
     rows = 9*3;
     cols = 16*3;
-    if(canvas.height > canvas.width)
-        Math.swap(rows, cols);
+    if(canvas.height > canvas.width){
+        var tmp = rows;
+        rows = cols;
+        cols = tmp;
+    }
     cellSize = Math.min((canvas.width-2*lineWeight)/cols, (canvas.height-2*lineWeight)/rows);
 }
 
