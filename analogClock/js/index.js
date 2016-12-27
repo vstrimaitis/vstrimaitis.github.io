@@ -12,13 +12,15 @@ window.onload = function(){
     vd = v.drawing;
     vd.setCanvas('mainCanvas');
     vd.makeCanvasFullScreen();
-    backgroundColor = vd.ctx.createLinearGradient(0,vd.canvas.height*9/10,0,vd.canvas.height);
-    backgroundColor.addColorStop(0, 'black');
-    backgroundColor.addColorStop(1, 'white');
-    vd.background(backgroundColor);
-    
+
+
     var center = new v.Point2(vd.canvas.width/2, vd.canvas.height/2);
-    var radius = 300;
+    var radius = Math.min(vd.canvas.width/2, vd.canvas.height/2)*2/3;
+
+    backgroundColor = vd.ctx.createRadialGradient(vd.canvas.width/2, vd.canvas.height/2,radius, vd.canvas.width/2,vd.canvas.height/2, 0);
+    backgroundColor.addColorStop(0, 'black');
+    backgroundColor.addColorStop(1, 'rgb(51,51,51)');
+
     clock = new v.Clock(center, radius, new Date());
     var prev = null;
     window.requestAnimationFrame(function a(timestamp){
