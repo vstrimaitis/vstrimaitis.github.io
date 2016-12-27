@@ -3,8 +3,8 @@ var ctx;
 var lineWeight = 5;
 var lineColor = 'white';
 var cellSize = 50;
-var rows = 15;
-var cols = 25;
+var rows = 18;
+var cols = 32;
 
 window.onload = function(){
     canvas = document.getElementById('mainCanvas');
