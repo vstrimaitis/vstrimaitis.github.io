@@ -39,6 +39,8 @@ window.onload = function(){
 function drawClock(){
     vd.circle(clock.center, clock.radius);
     vd.stroke(lineWidth*5, lineColor);
+    vd.circle(clock.center, clock.radius*.02);
+    vd.fill(lineColor);
     drawNumbers();
     drawHands();
 }
