@@ -3,14 +3,14 @@ var ctx;
 var lineWeight = 5;
 var lineColor = 'white';
 var cellSize = 50;
-var rows = 18;
-var cols = 32;
+var rows;
+var cols;
 
 window.onload = function(){
     canvas = document.getElementById('mainCanvas');
     ctx = canvas.getContext('2d');
     makeCanvasFullScreen();
-    cellSize = Math.min((canvas.width-2*lineWeight)/cols, (canvas.height-2*lineWeight)/rows);
+    initParameters();
     var maze = vstrimaitis.generateMaze(cols, rows);
     for(var y = 0; y < rows; y++){
         for(var x = 0; x < cols; x++){
@@ -38,6 +38,14 @@ window.onload = function(){
         drawDiamond({x: x0, y: y0}, {x: len*Math.sin(angle) + x0, y: len*Math.cos(angle) + y0});
         angle += 0.01;
     }, 10);*/
+}
+
+function initParameters(){
+    rows = 9*3;
+    cols = 16*3;
+    if(canvas.height > canvas.width)
+        Math.swap(rows, cols);
+    cellSize = Math.min((canvas.width-2*lineWeight)/cols, (canvas.height-2*lineWeight)/rows);
 }
 
 function background(){
