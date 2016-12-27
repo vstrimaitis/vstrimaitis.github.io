@@ -37,8 +37,12 @@ window.onload = function(){
 }
 
 function drawClock(){
+    /*vd.circle(clock.center, clock.radius);
+    vd.stroke(lineWidth*5, lineColor);*/
     vd.circle(clock.center, clock.radius);
-    vd.stroke(lineWidth*5, lineColor);
+    vd.stroke(lineWidth, lineColor);
+    vd.circle(clock.center, clock.radius + lineWidth*4);
+    vd.stroke(lineWidth, lineColor);
     vd.circle(clock.center, clock.radius*.02);
     vd.fill(lineColor);
     drawNumbers();
@@ -47,14 +51,14 @@ function drawClock(){
 
 function drawHands(){
     vd.rupee(clock.center, clock.hoursHand.end, 30, 10);
-    //vd.stroke(lineWidth, lineColor);
-    vd.fill(fillColor);
+    vd.stroke(lineWidth, lineColor);
+    //vd.fill(fillColor);
     vd.rupee(clock.center, clock.minutesHand.end, 30, 10);
-    //vd.stroke(lineWidth, lineColor);
-    vd.fill(fillColor);
+    vd.stroke(lineWidth, lineColor);
+    //vd.fill(fillColor);
     vd.rupee(clock.center, clock.secondsHand.end, 30, 10);
-    //vd.stroke(lineWidth, lineColor);
-    vd.fill(fillColor);
+    vd.stroke(lineWidth, lineColor);
+    //vd.fill(fillColor);
 }
 
 function drawNumbers(){
