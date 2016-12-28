@@ -9,7 +9,7 @@ var Link = function(name, description, date, path, isDirect){
 Link.prototype.toHtml = function(){
     var l = this.isDirect ? this.path : 'subpages/' + this.path + '/index.html';
     var img = this.isDirect ? 'img/partyHard2.gif' : 'subpages/' + this.path + '/preview.png';
-    var html =  '<div class="col-lg-2">' +
+    var html =  '<div class="col-md-3">' +
                     '<div class="link ih-item circle effect13 from_left_and_right">' +
                         '<a href="'+l+'">' +
                             '<div class="img"><img src="'+img+'" title="'+this.name+'" alt="'+this.name+'"></div>' +
