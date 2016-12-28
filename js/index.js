@@ -39,8 +39,8 @@ window.onload = function(){
 }
 
 function buildLinkDiv(link){
-    var l = link.isDirect ? link.path : link.path + '/index.html';
-    var img = link.isDirect ? 'partyHard2.gif' : link.path + '/preview.png';
+    var l = link.isDirect ? link.path : 'subpages/' + link.path + '/index.html';
+    var img = link.isDirect ? 'img/partyHard2.gif' : 'subpages/' + link.path + '/preview.png';
     var html =  '<div class="col-sm-2">' +
                     '<div class="link ih-item circle effect13 from_left_and_right">' +
                         '<a href="'+l+'">' +
@@ -60,5 +60,5 @@ function buildLinkDiv(link){
 
 
 function lastEdit(){
-    document.getElementById("lastEdited").innerHTML = "Paskutini karta kazkas daryta: "+document.lastModified;
+    document.getElementById("lastEdited").innerHTML = "Last edited: "+document.lastModified;
 }
