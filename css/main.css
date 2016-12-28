@@ -1,0 +1,19 @@
+ul{
+    list-style-image: url('lenny.png');
+}
+table{
+    border-bottom: 4px dashed navy;
+    border-top: 4px dashed navy;
+    background-color: #FFFFCC;
+}
+body{
+    background-color: #1e1e1e;
+    overflow-x: hidden;
+    color: #569cd6;
+}
+.ih-item{
+    margin: 0 auto;
+}
+.row-fluid.row-grid>*{
+    margin: 20px 0 20px 0;
+}
