@@ -40,7 +40,7 @@ window.onload = function(){
 
 function buildLinkDiv(link){
     var l = link.isDirect ? link.path : link.path + '/index.html';
-    var img = link.isDirect ? 'partyhard2.gif' : link.path + '/preview.png';
+    var img = link.isDirect ? 'partyHard2.gif' : link.path + '/preview.png';
     var html =  '<div class="col-sm-2">' +
                     '<div class="link ih-item circle effect13 from_left_and_right">' +
                         '<a href="'+l+'">' +
