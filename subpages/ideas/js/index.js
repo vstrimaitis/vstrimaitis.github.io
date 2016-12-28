@@ -8,6 +8,7 @@ window.onload = function(){
     //database.ref('ideas/-KZRPN9DDKSbAQQqS7Jt').set({description: 'test2', title: 'test'});
     
     ref.on('value', function(data){
+        $('.loader').hide();
         clearIdeaItems();
         if(data.val() === null)
             return;
