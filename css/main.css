@@ -17,3 +17,6 @@ body{
 .row-fluid.row-grid>*{
     margin: 20px 0 20px 0;
 }
+#header{
+    background-color: transparent !important;
+}
