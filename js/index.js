@@ -9,8 +9,12 @@ var Link = function(name, description, date, path, isDirect){
 Link.prototype.toHtml = function(){
     var l = this.isDirect ? this.path : 'subpages/' + this.path + '/index.html';
     var img = this.isDirect ? 'img/partyHard2.gif' : 'subpages/' + this.path + '/preview.png';
+    var possibleEffects = ['effect5 left_to_right', 'effect5 right_to_left', 'effect5 left_to_right', 'effect5 right_to_left', 'effect13 left_to_right', 'effect13 right_to_left', 'effect13 top_to_bottom', 'effect13 bottom_to_top', 
+                          'effect15 left_to_right', 'effect15 right_to_left', 'effect15 top_to_bottom', 'effect15 bottom_to_top', 'effect17', 'effect17', 'effect17', 'effect17' ];
+    var effect = getRandomElement(possibleEffects);
+    console.log(effect);
     var html =  '<div class="col-xs-12 col-sm-4 col-lg-3">' +
-                    '<div class="link ih-item circle effect13 from_left_and_right">' +
+                    '<div class="link ih-item circle '+effect+'">' +
                         '<a href="'+l+'">' +
                             '<div class="img"><img src="'+img+'" title="'+this.name+'" alt="'+this.name+'"></div>' +
                             '<div class="info">' +
@@ -24,6 +28,10 @@ Link.prototype.toHtml = function(){
                     '</div>' + 
                 '</div>';
     return html;
+}
+
+function getRandomElement(arr){
+    return arr[Math.floor(Math.random()*arr.length)];
 }
 
 var links = [
