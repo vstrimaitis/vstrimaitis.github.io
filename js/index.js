@@ -6,6 +6,26 @@ var Link = function(name, description, date, path, isDirect){
     this.date = date;
 }
 
+Link.prototype.toHtml = function(){
+    var l = this.isDirect ? this.path : 'subpages/' + this.path + '/index.html';
+    var img = this.isDirect ? 'img/partyHard2.gif' : 'subpages/' + this.path + '/preview.png';
+    var html =  '<div class="col-sm-2">' +
+                    '<div class="link ih-item circle effect13 from_left_and_right">' +
+                        '<a href="'+l+'">' +
+                            '<div class="img"><img src="'+img+'" title="'+this.name+'" alt="'+this.name+'"></div>' +
+                            '<div class="info">' +
+                                '<div class="info-back">' +
+                                    '<h3>'+this.name+'</h3>' +
+                                    '<p>'+this.description+'</p>' +
+                                    '<p>'+this.date+'</p>' +
+                                '</div>' +
+                            '</div>' +
+                        '</a>' +
+                    '</div>' + 
+                '</div>';
+    return html;
+}
+
 var links = [
     new Link("Analog clock", "An implementation of an animated analog clock.", "2016/12", "analogClock"),
     new Link("Maze generator", "A demonstration of a maze generation algorithm.", "2016/12", "mazeGenerator"),
@@ -34,28 +54,8 @@ window.onload = function(){
     lastEdit();
     var row = $('#linksRow');
     for(var i = 0; i < links.length; i++){
-        row.append(buildLinkDiv(links[i]));
+        row.append(links[i].toHtml());
     }
-}
-
-function buildLinkDiv(link){
-    var l = link.isDirect ? link.path : 'subpages/' + link.path + '/index.html';
-    var img = link.isDirect ? 'img/partyHard2.gif' : 'subpages/' + link.path + '/preview.png';
-    var html =  '<div class="col-sm-2">' +
-                    '<div class="link ih-item circle effect13 from_left_and_right">' +
-                        '<a href="'+l+'">' +
-                            '<div class="img"><img src="'+img+'" title="'+link.name+'" alt="'+link.name+'"></div>' +
-                            '<div class="info">' +
-                                '<div class="info-back">' +
-                                    '<h3>'+link.name+'</h3>' +
-                                    '<p>'+link.description+'</p>' +
-                                    '<p>'+link.date+'</p>' +
-                                '</div>' +
-                            '</div>' +
-                        '</a>' +
-                    '</div>' + 
-                '</div>';
-    return html;
 }
 
 
