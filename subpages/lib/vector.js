@@ -3,7 +3,8 @@ var vstrimaitis = vstrimaitis || {}
 vstrimaitis.Vector2 = function(x, y){
     this.x = x;
     this.y = y;
-    this.length = Math.sqrt(x*x + y*y);
+    this.length2 = x*x + y*y;
+    this.length = Math.sqrt(this.length2);
     this.angle = Math.degrees(Math.atan2(y, x))
 }
 
@@ -32,6 +33,8 @@ vstrimaitis.Vector2.prototype.divide = function(num){
 }
 
 vstrimaitis.Vector2.prototype.normalize = function(){
+    if(this.length === 0)
+        return this;
     return this.divide(this.length);
 }
 

@@ -1,7 +1,7 @@
 var vstrimaitis = vstrimaitis || {};
 vstrimaitis.drawing = vstrimaitis.drawing || {};
 
-vstrimaitis.drawing.line = function (p1, p2, weight, style){
+vstrimaitis.drawing.line = function (p1, p2){
     vstrimaitis.drawing.ctx.beginPath();
     vstrimaitis.drawing.ctx.moveTo(p1.x, p1.y);
     vstrimaitis.drawing.ctx.lineTo(p2.x, p2.y);
