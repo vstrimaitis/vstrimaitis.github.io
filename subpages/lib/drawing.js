@@ -7,6 +7,21 @@ vstrimaitis.drawing.line = function (p1, p2){
     vstrimaitis.drawing.ctx.lineTo(p2.x, p2.y);
 }
 
+vstrimaitis.drawing.arrow = function(p1, p2){
+    var alpha = 25;
+    var dir = p1.subtract(p2);
+    dir = dir.normalize().multiply(dir.length*0.2);
+    var p3 = p2.add(dir.rotate(alpha));
+    var p4 = p2.add(dir.rotate(-alpha));
+
+    vstrimaitis.drawing.ctx.beginPath();
+    vstrimaitis.drawing.ctx.moveTo(p1.x, p1.y);
+    vstrimaitis.drawing.ctx.lineTo(p2.x, p2.y);
+    vstrimaitis.drawing.ctx.lineTo(p3.x, p3.y);
+    vstrimaitis.drawing.ctx.moveTo(p2.x, p2.y);
+    vstrimaitis.drawing.ctx.lineTo(p4.x, p4.y);
+}
+
 vstrimaitis.drawing.stroke = function (lineWidth, strokeStyle){
     vstrimaitis.drawing.ctx.lineWidth = lineWidth;
     vstrimaitis.drawing.ctx.strokeStyle = strokeStyle;
