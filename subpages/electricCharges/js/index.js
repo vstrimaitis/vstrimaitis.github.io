@@ -1,6 +1,6 @@
 var v;
 var vd;
-var backgroundColor = 'rgb(51, 51, 51)';
+var backgroundColor = 'rgb(20,20,20)';
 var charges = [];
 var maxCharge = 50;
 var drag = 0;//0.01;
