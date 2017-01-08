@@ -2,16 +2,102 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>TOP klausimai egzaminui</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Pridėti klausimą</title>
+        <link rel="stylesheet" href="../../../css/normalize.css">
         <link rel="stylesheet" href="../../../css/bootstrap.min.css">
-        <link rel="stylesheet" href="../../../css/bootstrap-theme.css">
+        <link rel="stylesheet" href="../../../css/bootstrap-theme.min.css">
         <script src="../../../js/jquery-3.1.1.min.js"></script>
         <script src="../../../js/bootstrap.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
 
         <link rel="stylesheet" href="css/main.css">
         <script type="text/javascript" src="js/index.js"></script>
     </head>
     <body>
-        <a role="button" href="addQuestion.html" class="btn btn-default">Pridėti klausimų</a>
+        <div class="container-fluid">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#all">Skaityti klausimus</a></li>
+                <li><a data-toggle="tab" href="#addTest">Testinis</a></li>
+                <li><a data-toggle="tab" href="#addNonTest">Atviras</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="all" class="tab-pane fade in active">
+                    <div id="questionContent"></div>
+                    <button type="button" class="btn btn-primary" id="nextQuestionButton">Kitas klausimas</button>
+                </div>
+                <div id="addTest" class="tab-pane fade in">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <form>
+                                <div class="form-group">
+                                    <label for="testQuestion">Klausimas:</label>
+                                    <textarea class="form-control" id="testQuestion" rows="3"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="testAnswers">Atsakymai:</label>
+                                    <div class="controls" id="answers">
+                                        <form class="input-append">
+                                            <div id="answerItems"><!--<input autocomplete="off" class="input" id="answer_1" name="prof1" type="text" placeholder="Type something" data-items="8"/>--></div>
+                                            <button id="b1" tabindex="-1" class="btn add-more" type="button">+</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="testExplanation">Paaiškinimas:</label>
+                                    <textarea class="form-control" id="testExplanation" rows="5"></textarea>
+                                </div>
+                                <button id="addTestQuestionButton" type="submit" class="btn btn-primary">Pridėti</button>
+                            </form>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <h3 id="testQuestionPreview"></h3>
+                            <div id="testAnswersPreview">
+                                <!--Numbered in some way-->
+                            </div>
+                            <h3>Paaiškinimas:</h3>
+                            <blockquote class="blockquote">
+                                <p class="mb-0" id="testExplanationPreview"></p>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+                <div id="addNonTest" class="tab-pane fade">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <form>
+                                <div class="form-group">
+                                    <label for="openQuestion">Klausimas:</label>
+                                    <textarea class="form-control" id="openQuestion" rows="3"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="openAnswer">Atsakymas:</label>
+                                    <textarea class="form-control" id="openAnswer" rows="5"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="openExplanation">Paaiškinimas:</label>
+                                    <textarea class="form-control" id="openExplanation" rows="5"></textarea>
+                                </div>
+                                <button id="addOpenQuestionButton" type="submit" class="btn btn-primary">Pridėti</button>
+                            </form>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <h3 id="openQuestionPreview"></h3>
+                            <h3>Atsakymas:</h3>
+                            <blockquote class="blockquote">
+                                <p class="mb-0" id="openAnswerPreview"></p>
+                            </blockquote>
+                            <h3>Paaiškinimas:</h3>
+                            <blockquote class="blockquote">
+                                <p class="mb-0" id="openExplanationPreview"></p>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
     </body>
 </html>

@@ -1,3 +1,16 @@
 #field {
     margin-bottom:20px;
 }
+
+.hiddenAnswer{
+    display:none;
+}
+
+textarea, input[type="text"]{
+    font-family: Consolas, Lucida Console, monospace !important;
+}
+
+code{
+    background-color: rgb(245, 245, 245);
+    color: black;
+}
