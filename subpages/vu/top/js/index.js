@@ -1,5 +1,6 @@
 var database;
-var questions = [];
+var allQuestions = [];
+var currentQuestions = [];
 
 $(document).ready(function(){
     initFirebase();
@@ -9,12 +10,13 @@ $(document).ready(function(){
 
     var ref = database.ref('questions');
     ref.once('value', function(data){
-        questions = [];
+        allQuestions = [];
         var q = data.val();
         var keys = Object.keys(q);
         for(var i = 0; i < keys.length; i++){
-            questions.push(q[keys[i]]);
+            allQuestions.push(q[keys[i]]);
         }
+        currentQuestions = allQuestions.slice(0);
         updateQuestionCountBadge();
         displayRandomQuestion();
     });
@@ -71,7 +73,8 @@ $(document).ready(function(){
         }
         
         ref.push(questionData);
-        questions.push(questionData);
+        allQuestions.push(questionData);
+        currentQuestions.push(questionData);
         updateQuestionCountBadge();
     });
 
@@ -84,7 +87,8 @@ $(document).ready(function(){
         questionData.explanation = $('#openExplanation').val();
 
         ref.push(questionData);
-        questions.push(questionData);
+        allQuestions.push(questionData);
+        currentQuestions.push(questionData);
         updateQuestionCountBadge();
     });
 
@@ -106,7 +110,7 @@ $(document).ready(function(){
 });
 
 function updateQuestionCountBadge(){
-    $('#questionCount').html(questions.length);
+    $('#questionCount').html(allQuestions.length);
 }
 
 function allowTabsFor(selector){
@@ -203,7 +207,13 @@ function displayTestQuestion(q){
 }
 
 function getRandomQuestion(){
-    return questions[Math.floor(Math.random() * questions.length)];
+    if(currentQuestions.length === 0){
+        currentQuestions = allQuestions.slice(0);
+    }
+    var i = Math.floor(Math.random() * currentQuestions.length);
+    var toReturn = currentQuestions[i];
+    currentQuestions.splice(i, 1);
+    return toReturn;
 }
 
 function initFirebase(){
