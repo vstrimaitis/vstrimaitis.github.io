@@ -15,6 +15,7 @@ $(document).ready(function(){
         for(var i = 0; i < keys.length; i++){
             questions.push(q[keys[i]]);
         }
+        updateQuestionCountBadge();
         displayRandomQuestion();
     });
 
@@ -71,6 +72,7 @@ $(document).ready(function(){
         
         ref.push(questionData);
         questions.push(questionData);
+        updateQuestionCountBadge();
     });
 
     $('#addOpenQuestionButton').click(function(e){
@@ -83,6 +85,7 @@ $(document).ready(function(){
 
         ref.push(questionData);
         questions.push(questionData);
+        updateQuestionCountBadge();
     });
 
     $('#nextQuestionButton').click(function(e){
@@ -94,13 +97,17 @@ $(document).ready(function(){
     $(document).on('click', '#showAnswersButton', function(e){
         $('.hiddenAnswer').removeClass('hiddenAnswer');
         $('.correctChoice').addClass('text-success');
-        $('.correctChoice').append('<span class="glyphicon glyphicon-ok"></span>');
+        $('.correctChoice').append('<span class="glyphicon glyphicon-ok-circle"></span>');
         $('.wrongChoice').addClass('text-danger');
-        $('.wrongChoice').append('<span class="glyphicon glyphicon-remove"></span>');
-        $(this).remove();
+        $('.wrongChoice').append('<span class="glyphicon glyphicon-remove-circle"></span>');
+        //$(this).remove();
     });
 
 });
+
+function updateQuestionCountBadge(){
+    $('#questionCount').html(questions.length);
+}
 
 function allowTabsFor(selector){
     $(document).delegate(selector, 'keydown', function(e) {
@@ -169,7 +176,6 @@ function displayRandomQuestion(){
 function displayOpenQuestion(q){
     var html =  '<h3 class="question">'+q.question+'</h3>'+
                 '<textarea class="form-control answerInput" placeholder="Vieta atsakymui"></textarea>'+
-                '<button type="button" class="btn btn-success" id="showAnswersButton">Parodyti teisingą atsakymą</button>' + 
                 '<div class="hiddenAnswer">'+
                     '<h3>Atsakymas:</h3>' +
                     '<blockquote class="blockquote"><p class="mb-0">'+q.answer+'</p></blockquote>' + 
@@ -189,7 +195,6 @@ function displayTestQuestion(q){
                     '<label><input type="checkbox">'+a.text+'</label>'+
                 '</div>';
     }
-    html += '<button type="button" class="btn btn-success" id="showAnswersButton">Parodyti teisingą atsakymą</button>';
     html += '<div class="hiddenAnswer">'+ 
                 '<h3>Paaiškinimas:</h3>'+
                 '<blockquote class="blockquote"><p class="mb-0">'+q.explanation+'</p></blockquote>' +

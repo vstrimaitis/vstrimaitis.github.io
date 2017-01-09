@@ -17,7 +17,7 @@
     <body>
         <div class="container-fluid">
             <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#all">Skaityti klausimus</a></li>
+                <li class="active"><a data-toggle="tab" href="#all">Klausimai <span class="badge" id="questionCount"></span></a></li>
                 <li><a data-toggle="tab" href="#addTest">Pridėti testinį</a></li>
                 <li><a data-toggle="tab" href="#addNonTest">Pridėti atvirą</a></li>
             </ul>
@@ -25,7 +25,8 @@
             <div class="tab-content">
                 <div id="all" class="tab-pane fade in active">
                     <div id="questionContent"></div>
-                    <button type="button" class="btn btn-primary" id="nextQuestionButton">Kitas klausimas</button>
+                    <button type="button" class="btn btn-success" id="showAnswersButton"><span class="glyphicon glyphicon-eye-open"></span></button>
+                    <button type="button" class="btn btn-primary" id="nextQuestionButton"><span class="glyphicon glyphicon-chevron-right"></span></button>
                 </div>
                 <div id="addTest" class="tab-pane fade in">
                     <div class="row">
