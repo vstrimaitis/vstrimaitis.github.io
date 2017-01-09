@@ -1,6 +1,8 @@
 var database;
 var allQuestions = [];
 var currentQuestions = [];
+var questionHistory = [];
+var historyIndex;
 
 $(document).ready(function(){
     initFirebase();
@@ -18,8 +20,11 @@ $(document).ready(function(){
         }
         currentQuestions = allQuestions.slice(0);
         updateQuestionCountBadge();
-        displayRandomQuestion();
+        historyIndex = -1;
+        displayQuestion(0);
     });
+
+    $('#prevQuestionButton').prop('disabled', true);
 
 
     var next = 1;
@@ -94,7 +99,13 @@ $(document).ready(function(){
 
     $('#nextQuestionButton').click(function(e){
         e.preventDefault();
-        displayRandomQuestion();
+        displayQuestion(++historyIndex);
+        $('#prevQuestionButton').prop('disabled', false);
+    });
+
+    $('#prevQuestionButton').click(function(e){
+        e.preventDefault();
+        displayQuestion(--historyIndex);
     });
 
 
@@ -168,8 +179,17 @@ function enableOpenPreview(){
     });
 }
 
-function displayRandomQuestion(){
-    var question = getRandomQuestion();
+function displayQuestion(index){
+    var question;
+    if(index >= questionHistory.length - 1){
+        question = getRandomQuestion();
+        questionHistory[index] = question;
+    } else {
+        question = questionHistory[index];
+        if(index === 0){
+            $('#prevQuestionButton').prop('disabled', true);
+        }
+    }
     if(question.type === 'test'){
         displayTestQuestion(question);
     } else {
@@ -211,9 +231,9 @@ function getRandomQuestion(){
         currentQuestions = allQuestions.slice(0);
     }
     var i = Math.floor(Math.random() * currentQuestions.length);
-    var toReturn = currentQuestions[i];
+    var q = currentQuestions[i];
     currentQuestions.splice(i, 1);
-    return toReturn;
+    return q;
 }
 
 function initFirebase(){
