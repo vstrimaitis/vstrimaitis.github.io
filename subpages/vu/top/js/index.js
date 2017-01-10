@@ -181,7 +181,7 @@ function enableOpenPreview(){
 
 function displayQuestion(index){
     var question;
-    if(index >= questionHistory.length - 1){
+    if(index >= questionHistory.length){
         question = getRandomQuestion();
         questionHistory[index] = question;
     } else {
