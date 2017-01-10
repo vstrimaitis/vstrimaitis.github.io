@@ -12,6 +12,8 @@ $(document).ready(function(){
 
     var ref = database.ref('questions');
     ref.once('value', function(data){
+        $('#quizLoader').remove();
+        $('#quiz').css('visibility', 'visible');
         allQuestions = [];
         var q = data.val();
         var keys = Object.keys(q);
@@ -20,8 +22,8 @@ $(document).ready(function(){
         }
         currentQuestions = allQuestions.slice(0);
         updateQuestionCountBadge();
-        historyIndex = -1;
-        displayQuestion(0);
+        historyIndex = 0;
+        displayQuestion(historyIndex);
     });
 
     $('#prevQuestionButton').prop('disabled', true);
@@ -120,6 +122,24 @@ $(document).ready(function(){
 
 });
 
+function displayQuestion(index){
+    var question;
+    if(index >= questionHistory.length){
+        question = getRandomQuestion();
+        questionHistory[index] = question;
+    } else {
+        question = questionHistory[index];
+        if(index === 0){
+            $('#prevQuestionButton').prop('disabled', true);
+        }
+    }
+    if(question.type === 'test'){
+        displayTestQuestion(question);
+    } else {
+        displayOpenQuestion(question);
+    }
+}
+
 function updateQuestionCountBadge(){
     $('#questionCount').html(allQuestions.length);
 }
@@ -177,24 +197,6 @@ function enableOpenPreview(){
     $('#openAnswer').on('input', function(){
         $('#openAnswerPreview').html($(this).val());
     });
-}
-
-function displayQuestion(index){
-    var question;
-    if(index >= questionHistory.length){
-        question = getRandomQuestion();
-        questionHistory[index] = question;
-    } else {
-        question = questionHistory[index];
-        if(index === 0){
-            $('#prevQuestionButton').prop('disabled', true);
-        }
-    }
-    if(question.type === 'test'){
-        displayTestQuestion(question);
-    } else {
-        displayOpenQuestion(question);
-    }
 }
 
 function displayOpenQuestion(q){

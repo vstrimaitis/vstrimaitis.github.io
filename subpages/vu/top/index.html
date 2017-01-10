@@ -24,10 +24,15 @@
 
             <div class="tab-content">
                 <div id="all" class="tab-pane fade in active">
-                    <button type="button" class="btn btn-primary" id="prevQuestionButton" disabled><span class="glyphicon glyphicon-chevron-left"></span></button>
-                    <button type="button" class="btn btn-success" id="showAnswersButton"><span class="glyphicon glyphicon-eye-open"></span></button>
-                    <button type="button" class="btn btn-primary" id="nextQuestionButton"><span class="glyphicon glyphicon-chevron-right"></span></button>
-                    <div id="questionContent"></div>
+                    <div class="loader" id="quizLoader">
+                        <span>{</span><span>}</span>
+                    </div>
+                    <div id="quiz">
+                        <button type="button" class="btn btn-primary" id="prevQuestionButton"><span class="glyphicon glyphicon-chevron-left"></span></button>
+                        <button type="button" class="btn btn-success" id="showAnswersButton"><span class="glyphicon glyphicon-eye-open"></span></button>
+                        <button type="button" class="btn btn-primary" id="nextQuestionButton"><span class="glyphicon glyphicon-chevron-right"></span></button>
+                        <div id="questionContent"></div>
+                    </div>
                 </div>
                 <div id="addTest" class="tab-pane fade in">
                     <div class="row">
