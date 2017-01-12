@@ -117,7 +117,6 @@ $(document).ready(function(){
         $('.correctChoice').append('<span class="glyphicon glyphicon-ok-circle"></span>');
         $('.wrongChoice').addClass('text-danger');
         $('.wrongChoice').append('<span class="glyphicon glyphicon-remove-circle"></span>');
-        //$(this).remove();
     });
 
 });
@@ -200,7 +199,8 @@ function enableOpenPreview(){
 }
 
 function displayOpenQuestion(q){
-    var html =  '<h3 class="question">'+q.question+'</h3>'+
+    var question = (historyIndex+1) + '. ' + q.question;
+    var html =  '<h3 class="question">'+question+'</h3>'+
                 '<textarea class="form-control answerInput" placeholder="Vieta atsakymui"></textarea>'+
                 '<div class="hiddenAnswer">'+
                     '<h3>Atsakymas:</h3>' +
@@ -213,7 +213,8 @@ function displayOpenQuestion(q){
 }
 
 function displayTestQuestion(q){
-    var html =  '<h3 class="question">'+q.question+'</h3>';
+    var question = (historyIndex+1) + '. ' + q.question;
+    var html =  '<h3 class="question">'+question+'</h3>';
     for(var i = 0; i < q.answers.length; i++){
         var a = q.answers[i];
         var correctChoice = a.isCorrect ? 'correctChoice' : 'wrongChoice';
