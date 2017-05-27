@@ -1,0 +1,23 @@
+\documentclass[tikz]{standalone}
+\usepackage{tikz}
+
+\begin{document}
+    \foreach \time in {0, 0.01, ..., 0.34}
+    {
+        \begin{tikzpicture}[scale=20]
+            \draw[-latex] (-0.01,0) -- (0.4, 0);
+            \draw[-latex] (0,-0.1) -- (0, 0.2);
+            \node[right] at (0.4, 0) {$x$};
+            \node[above] at (0, 0.2) {$y$};
+
+            %\draw[dashed] plot[domain=0,2*pi]
+            \draw[dashed, smooth, domain=0:0.34641] plot ({\x}, {-5*\x*\x+1.73205*\x}); 
+            \fill[red] (\time,-5*\time*\time+1.73205*\time) circle (0.01);
+
+
+            \draw[-latex] (\time,-5*\time*\time+1.73205*\time) -- (\time+0.05,-5*\time*\time+1.73205*\time);
+            \draw[-latex] (\time,-5*\time*\time+1.73205*\time) -- (\time,-5*\time*\time+1.73205*\time + 0.0866025-\time/2);
+            \draw[-latex, blue] (\time,-5*\time*\time+1.73205*\time) -- (\time+0.05,-5*\time*\time+1.73205*\time + 0.0866025-\time/2);
+        \end{tikzpicture}
+    }
+\end{document}

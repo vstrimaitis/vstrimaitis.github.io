@@ -35,6 +35,7 @@ function getRandomElement(arr){
 }
 
 var links = [
+    new Link("LaTex animations", "A collection of animations made with LaTex", "2017/05", "latexAnimations"),
     new Link("Electric charges", "A simulation of interaction of electric charges", "2017/01", "electricCharges"),
     new Link("Analog clock", "An implementation of an animated analog clock.", "2016/12", "analogClock"),
     new Link("Maze generator", "A demonstration of a maze generation algorithm.", "2016/12", "mazeGenerator"),

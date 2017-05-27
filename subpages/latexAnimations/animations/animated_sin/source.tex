@@ -1,0 +1,33 @@
+\documentclass[tikz]{standalone}
+\usepackage{tikz}
+
+\begin{document}
+
+    \begin{tikzpicture}
+        \def\angle{45};
+        \fill[fill=red] (0,0) -- plot [domain=0:pi/180*\angle] (\x,{sin(\x r)}) -- (pi/180*\angle,0) -- cycle;
+    \end{tikzpicture}
+
+    \foreach \angle in {0,10,...,360}
+    {
+        \begin{tikzpicture}
+        %\fill[blue!50] (-1,0) arc (0:\angle:1) -- (-2,0) -- cycle;
+        %\fill[blue!50] plot[smooth,domain=0:\angle] (pi/180*\x,{sin(\x)}) |- (0,0);
+        \def\radangle{pi/180*\angle};
+
+        \fill[blue!50] (-1,0) arc (0:\angle:1) -- (-2,0) -- cycle;
+        %\fill[fill=red] (0,0) -- plot [domain=0:\radangle] (\x,{sin(\x r)}) -- (\radangle,0) -- cycle;
+        
+        \draw (-2,0) +(\angle:1) circle (2pt) -- (pi/180*\angle,{sin(\angle)}) circle (2pt);
+        \draw (-3.5,0) -- (7,0);
+        \foreach \deg in {90, 180, 270, 360}
+            \draw (pi/180*\deg,2pt) -- (pi/180*\deg,-2pt) node[below] {$\deg^\circ$};
+        \draw (0,-1.2) -- (0,1.2);
+        \foreach \y in {-1,-0.5,0.5,1}
+        \draw (2pt,\y) -- (-2pt,\y) node[left] {$\y$};
+        \draw plot[smooth,domain=0:360] (pi/180*\x,{sin(\x)});
+        \draw (-2,0) circle (1);
+        \end{tikzpicture}
+    }
+
+\end{document}
