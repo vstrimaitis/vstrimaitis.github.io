@@ -8,7 +8,7 @@ var Link = function(name, description, date, path, isDirect){
 
 Link.prototype.toHtml = function(){
     var l = this.isDirect ? this.path : 'subpages/' + this.path + '/index.html';
-    var img = this.isDirect ? 'img/partyHard2.gif' : 'subpages/' + this.path + '/preview.png';
+    var img = this.isDirect ? 'img/partyHard2.gif' : 'subpages/PREVIEW_IMAGES/' + this.path + '.png';
     var possibleEffects = ['effect5 left_to_right', 'effect5 right_to_left', 'effect5 left_to_right', 'effect5 right_to_left', 'effect13 left_to_right', 'effect13 right_to_left', 'effect13 top_to_bottom', 'effect13 bottom_to_top', 
                           'effect15 left_to_right', 'effect15 right_to_left', 'effect15 top_to_bottom', 'effect15 bottom_to_top', 'effect17', 'effect17', 'effect17', 'effect17' ];
     var effect = getRandomElement(possibleEffects);
@@ -35,6 +35,7 @@ function getRandomElement(arr){
 }
 
 var links = [
+    new Link("Function Grapher", "A small program to plot mathematical functions", "2017/06", "functionGrapher"),
     new Link("LaTex animations", "A collection of animations made with LaTex", "2017/05", "latexAnimations"),
     new Link("Electric charges", "A simulation of interaction of electric charges", "2017/01", "electricCharges"),
     new Link("Analog clock", "An implementation of an animated analog clock.", "2016/12", "analogClock"),

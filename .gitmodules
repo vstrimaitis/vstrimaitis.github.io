@@ -1,0 +1,3 @@
+[submodule "subpages/functionGrapher"]
+	path = subpages/functionGrapher
+	url = https://github.com/vstrimaitis/FunctionGrapher
