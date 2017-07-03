@@ -3,5 +3,5 @@ var vstrimaitis = vstrimaitis || {};
 vstrimaitis.animate = function(t){
     update();
     draw();
-    requestAnimationFrame(animate);
+    requestAnimationFrame(vstrimaitis.animate);
 }
