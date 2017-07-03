@@ -39,7 +39,7 @@ vstrimaitis.Vector2.prototype.normalize = function(){
 }
 
 vstrimaitis.Vector2.prototype.dot = function(other){
-    return new vstrimaitis.Vector2(this.x * other.x, this.y * other.y);
+    return this.x * other.x + this.y * other.y;
 }
 
 vstrimaitis.Vector2.prototype.rotate = function(angle){
