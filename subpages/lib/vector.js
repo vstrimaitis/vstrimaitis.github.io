@@ -9,11 +9,11 @@ vstrimaitis.Vector2 = function(x, y){
 }
 
 Math.radians = function(degrees) {
-  return degrees * Math.PI / 180;
+    return degrees * Math.PI / 180;
 };
 
 Math.degrees = function(radians) {
-  return radians * 180 / Math.PI;
+    return radians * 180 / Math.PI;
 };
 
 vstrimaitis.Vector2.prototype.add = function(other){
