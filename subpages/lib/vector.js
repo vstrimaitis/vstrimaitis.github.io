@@ -52,6 +52,14 @@ vstrimaitis.Vector2.prototype.flip = function(){
     return new vstrimaitis.Vector2(-this.x, -this.y);
 }
 
+vstrimaitis.Vector2.prototype.flipX = function(){
+    return new vstrimaitis.Vector2(-this.x, this.y);
+}
+
+vstrimaitis.Vector2.prototype.flipY = function(){
+    return new vstrimaitis.Vector2(this.x, -this.y);
+}
+
 vstrimaitis.Point2 = function(x, y){
     return new vstrimaitis.Vector2(x, y);
 }
