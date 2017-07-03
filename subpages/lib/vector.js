@@ -33,7 +33,7 @@ vstrimaitis.Vector2.prototype.divide = function(num){
 }
 
 vstrimaitis.Vector2.prototype.normalize = function(){
-    if(this.length === 0)
+    if(this.length <= 0.01)
         return this;
     return this.divide(this.length);
 }
