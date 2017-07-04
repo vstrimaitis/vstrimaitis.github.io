@@ -20,9 +20,9 @@ vstrimaitis.animate = function(timestamp){
         if(vstrimaitis._accumulator > 0.2){
             vstrimaitis._accumulator = 0.2;
         }
-        while(accumulator > vstrimaitis._dt){
+        while(vstrimaitis._accumulator > vstrimaitis._dt){
             update(vstrimaitis._dt);
-            accumulator -= vstrimaitis._dt;
+            vstrimaitis._accumulator -= vstrimaitis._dt;
         }
         draw();
         requestAnimationFrame(vstrimaitis.animate);
