@@ -1,19 +1,29 @@
 var vstrimaitis = vstrimaitis || {};
 vstrimaitis._framesPerSecond = 60;
+vstrimaitis._dt = 1/vstrimaitis._framesPerSecond;
+vstrimaitis._accumulator = 0;
 vstrimaitis._previousTimestamp;
 
 vstrimaitis.setFramerate = function(fps){
     vstrimaitis._framesPerSecond = fps;
+    vstrimaitis._dt = 1/fps;
 }
 
 vstrimaitis.animate = function(timestamp){
     setTimeout(function(){
+        timestamp = timestamp || new Date().getTime();
         if(!vstrimaitis._previousTimestamp){
             vstrimaitis._previousTimestamp = timestamp;
         }
-        var dt = timestamp - vstrimaitis._previousTimestamp;
+        vstrimaitis._accumulator += timestamp - vstrimaitis._previousTimestamp;
         vstrimaitis._previousTimestamp = timestamp;
-        update(dt);
+        if(vstrimaitis._accumulator > 0.2){
+            vstrimaitis._accumulator = 0.2;
+        }
+        while(accumulator > vstrimaitis._dt){
+            update(vstrimaitis._dt);
+            accumulator -= vstrimaitis._dt;
+        }
         draw();
         requestAnimationFrame(vstrimaitis.animate);
     }, 1000/vstrimaitis._framesPerSecond);
