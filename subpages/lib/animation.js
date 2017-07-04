@@ -11,7 +11,7 @@ vstrimaitis.setFramerate = function(fps){
 
 vstrimaitis.animate = function(timestamp){
     setTimeout(function(){
-        timestamp = timestamp || new Date().getTime();
+        timestamp = timestamp || 0;
         if(!vstrimaitis._previousTimestamp){
             vstrimaitis._previousTimestamp = timestamp;
         }
