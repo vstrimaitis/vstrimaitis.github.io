@@ -1,7 +1,20 @@
 var vstrimaitis = vstrimaitis || {};
+vstrimaitis._framesPerSecond = 60;
+vstrimaitis._previousTimestamp;
 
-vstrimaitis.animate = function(t){
-    update();
-    draw();
-    requestAnimationFrame(vstrimaitis.animate);
+vstrimaitis.setFramerate = function(fps){
+    vstrimaitis._framesPerSecond = fps;
+}
+
+vstrimaitis.animate = function(timestamp){
+    setTimeout(function(){
+        if(!vstrimaitis._previousTimestamp){
+            vstrimaitis._previousTimestamp = timestamp;
+        }
+        var dt = timestamp - vstrimaitis._previousTimestamp;
+        vstrimaitis._previousTimestamp = timestamp;
+        update(dt);
+        draw();
+        requestAnimationFrame(vstrimaitis.animate);
+    }, 1000/vstrimaitis._framesPerSecond);
 }
