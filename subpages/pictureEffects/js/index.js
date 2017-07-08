@@ -1,10 +1,19 @@
 var canvas;
 var createEffect = {
-    poisson: function(canvas, image){
-        return new PoissonDiscEffect(canvas, image);
+    poisson: function(options){
+        options.r = document.getElementById('poissonR').value-0;
+        options.d = document.getElementById('poissonD').value-0;
+        options.generationSpeed = document.getElementById('poissonS').value-0;
+        return new PoissonDiscEffect(options);
     },
-    raindrops: function(canvas, image){
-        return new RaindropEffect(canvas, image);
+    raindrops: function(options){
+        options.minR = document.getElementById('raindropsMinR').value-0;
+        options.maxR = document.getElementById('raindropsMaxR').value-0;
+        options.minTTL = document.getElementById('raindropsMinTTL').value-0;
+        options.maxTTL = document.getElementById('raindropsMaxTTL').value-0;
+        options.minTimeout = document.getElementById('raindropsMinTimeout').value-0;
+        options.maxTimeout = document.getElementById('raindropsMaxTimeout').value-0;
+        return new RaindropEffect(options);
     }
 }
 var effect = null;
@@ -39,7 +48,7 @@ function launchEffect(){
 
     canvas.width = currImage.width;
     canvas.height = currImage.height;
-    effect = createEffect[type](canvas, currImage);
+    effect = createEffect[type]({canvas: canvas, image: currImage});
 }
 
 function animate(timestamp){
@@ -50,8 +59,20 @@ function animate(timestamp){
     requestAnimationFrame(animate);
 }
 
+function hideForms(radio){
+    var els = document.getElementsByClassName('optionsInput');
+    for(var i = 0; i < els.length; i++){
+        els[i].style.display = 'none';
+    }
+    if(radio.checked){
+        var id = radio.value + 'Input';
+        document.getElementById(id).style.display = 'initial';
+    }
+}
+
 function main(){
     document.effectForm.reset(); 
+    hideForms(document.querySelector('input[name="effectType"]:checked'));
     canvas = document.getElementById('mainCanvas');
     animate();
 }

@@ -4,3 +4,20 @@ body{
 #mainCanvas{
     background: rgb(51, 51, 51);
 }
+
+form{
+    display: table;
+    color: white;
+}
+
+span.row{
+    display: table-row;
+}
+
+label{
+    display: table-cell;
+}
+
+input{
+    display: table-cell;
+}

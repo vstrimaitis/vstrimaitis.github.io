@@ -1,16 +1,28 @@
-function PoissonDiscEffect(canvas, image){
-    this.canvasUtil = new CanvasUtil(canvas);
+/**
+ * options.canvas
+ * options.image
+ * options.r - min distance between two points
+ * options.d - size of points
+ * options.speed - generation speed
+ */
+
+function PoissonDiscEffect(/*canvas, image*/options){
+    this.canvasUtil = new CanvasUtil(options.canvas);
     
-    this.r = 5;
+    /*this.r = 5;
+    this.generationSpeed = 100;*/
+    this.r = options.r;
+    this.generationSpeed = options.generationSpeed;
+    this.d = options.d;
+
     this.k = 30;
-    this.generationSpeed = 100;
     this.grid = [];
     this.active = [];
     this.w = this.r/Math.sqrt(2);
     this.rows = Math.floor(this.canvasUtil.getHeight() / this.w);;
     this.cols = Math.floor(this.canvasUtil.getWidth() / this.w);
     this.newPoints = [];
-    this.pixels = this.canvasUtil.getImagePixels(image);
+    this.pixels = this.canvasUtil.getImagePixels(options.image);
 
     for(var i = 0; i < this.cols*this.rows; i++){
         this.grid[i] = undefined;
@@ -87,7 +99,7 @@ PoissonDiscEffect.prototype.draw = function(){
         var ii = Math.floor(y);
         var idx = (jj + ii*this.canvasUtil.getWidth())*4;
         var d = [this.pixels[idx], this.pixels[idx+1], this.pixels[idx+2], this.pixels[idx+3]];
-        this._drawCircle(x, y, this.r/2, d);
+        this._drawCircle(x, y, this.d, d);
     }
     this.newPoints = [];
 }

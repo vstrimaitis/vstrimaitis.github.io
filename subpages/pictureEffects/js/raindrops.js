@@ -1,16 +1,32 @@
-function RaindropEffect(canvas, image){
-    this.canvasUtil = new CanvasUtil(canvas);
-    this.pixels = this.canvasUtil.getImagePixels(image);
+/**
+ * options.canvas
+ * options.image
+ * options.minR - minimum radius of a circle
+ * options.maxR - maximum radius of a circle
+ * options.minTTL - minimum TTL of a circle
+ * options.maxTTL - maximum TTL of a circle
+ * options.minTiemout - minimum time interval between two circle spawns
+ * options.maxTimeout - maximum time interval between two circle spawns
+ */
+function RaindropEffect(options){
+    this.canvasUtil = new CanvasUtil(options.canvas);
+    this.pixels = this.canvasUtil.getImagePixels(options.image);
 
-    this.minR = 10;
+    /*this.minR = 10;
     this.maxR = 100;
     this.minTTL = 50;
     this.maxTTL = 1000;
+    this.minTimeout = 10;
+    this.maxTimeout = 100;*/
+    this.minR = options.minR;
+    this.maxR = options.maxR;
+    this.minTTL = options.minTTL;
+    this.maxTTL = options.maxTTL;
+    this.minTimeout = options.minTimeout;
+    this.maxTimeout = options.maxTimeout;
     this.droplets = [];
     this.alpha = [];
     this.timeout = 0;
-    this.minTimeout = 10;
-    this.maxTimeout = 100;
 
     for(var i = 0; i < this.canvasUtil.getHeight(); i++){
         var row = [];
