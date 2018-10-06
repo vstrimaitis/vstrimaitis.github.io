@@ -1,14 +1,19 @@
-var Link = function(name, description, date, path, isDirect){
+var Link = function(name, description, date, path, isDirect, imagePath){
     this.name = name;
     this.description = description;
     this.path = path;
     this.isDirect = isDirect;
     this.date = date;
+    if (imagePath) {
+        this.imagePath = imagePath;
+    } else {
+        this.imagePath = this.isDirect ? 'img/partyHard2.gif' : 'subpages/PREVIEW_IMAGES/' + this.path + '.png';
+    }
 }
 
 Link.prototype.toHtml = function(){
     var l = this.isDirect ? this.path : 'subpages/' + this.path + '/index.html';
-    var img = this.isDirect ? 'img/partyHard2.gif' : 'subpages/PREVIEW_IMAGES/' + this.path + '.png';
+    var img = this.imagePath;
     var possibleEffects = ['effect5 left_to_right', 'effect5 right_to_left', 'effect5 left_to_right', 'effect5 right_to_left', 'effect13 left_to_right', 'effect13 right_to_left', 'effect13 top_to_bottom', 'effect13 bottom_to_top', 
                           'effect15 left_to_right', 'effect15 right_to_left', 'effect15 top_to_bottom', 'effect15 bottom_to_top', 'effect17', 'effect17', 'effect17', 'effect17' ];
     var effect = getRandomElement(possibleEffects);
@@ -35,7 +40,7 @@ function getRandomElement(arr){
 }
 
 var links = [
-    new Link("SIOM C++ course", "A course on C++ for beginner-level students of the Saturday School for Olympiads of Informatics (SIOM)", "2018-02", "https://vstrimaitis.github.io/siom-cpp/", true),
+    new Link("SIOM C++ course", "A course on C++ for beginner-level students of the Saturday School for Olympiads of Informatics (SIOM)", "2018-02", "https://vstrimaitis.github.io/siom-cpp/", true, "https://siom.lmio.lt/m/vilkas.png"),
     new Link("Picture effects", "Some different methods for animating the appearance of images", "2017/07", "pictureEffects"),
     new Link("Function Grapher", "A small program to plot mathematical functions", "2017/06", "functionGrapher"),
     new Link("LaTex animations", "A collection of animations made with LaTex", "2017/05", "latexAnimations"),
