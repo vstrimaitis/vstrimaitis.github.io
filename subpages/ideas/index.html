@@ -20,7 +20,22 @@
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     
-    <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCR88YzUgEFPXPU76Z1LyYRiyHIYlR46Qk",
+            authDomain: "ghpages-ideas.firebaseapp.com",
+            databaseURL: "https://ghpages-ideas.firebaseio.com",
+            projectId: "ghpages-ideas",
+            storageBucket: "ghpages-ideas.appspot.com",
+            messagingSenderId: "265268201351"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.1/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.1/firebaseui.css" />
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -38,21 +53,33 @@
                 </div> 
             </div>
             <div class="col-lg-5">
+                <form class="form-inline" id="loginForm" onsubmit="login(); return false">
+                    <div class="form-group">
+                        <label class="sr-only" for="emailInput">El. paštas</label>
+                        <input type="email" class="form-control" id="emailInput" placeholder="El. paštas">
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="passwordInput">Slaptažodis</label>
+                        <input type="password" class="form-control" id="passwordInput" placeholder="Slaptažodis">
+                    </div>
+                    <button type="submit" class="btn btn-default">Prisijungti</button>
+                </form>
+                <hr/>
                 <form id="newIdeaForm" onsubmit="addNewIdea(); return false">
                     <div class="form-group">
                         <label for="ideaTitle">Idėjos pavadinimas</label>
-                        <input type="text" class="form-control" id="ideaTitle" aria-describedby="ideaTitleHelp" placeholder="Pavadinimas">
+                        <input type="text" class="form-control edit-action" id="ideaTitle" aria-describedby="ideaTitleHelp" placeholder="Pavadinimas">
                         <small id="ideaTitleHelp" class="form-text text-muted">Trumpas idėjos pavadinimas, atspindintis jos esmę.</small>
                     </div>
                     <div class="form-group">
                         <label for="ideaDescription">Idėjos aprašymas</label>
-                        <textarea class="form-control" id="ideaDescription" rows="3" placeholder="Idėjos aprašymas..."></textarea> 
+                        <textarea class="form-control edit-action" id="ideaDescription" rows="3" placeholder="Idėjos aprašymas..."></textarea> 
                     </div>
                     <button type="submit" class="btn btn-primary">Pridėti</button>
                 </form>
             </div>
         </div>
-	   <p align="right">vycka™</p>
+	    <p align="right">vycka™</p>
     
     </div>
 	

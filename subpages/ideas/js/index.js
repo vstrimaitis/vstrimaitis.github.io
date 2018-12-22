@@ -1,9 +1,11 @@
 var database;
-
+var editingEnabled = false;
 window.onload = function(){
-    initFirebase();
+    init();
+    fetchIdeas();
+}
 
-    
+function fetchIdeas() {
     var ref = database.ref('ideas');
     //database.ref('ideas/-KZRPN9DDKSbAQQqS7Jt').set({description: 'test2', title: 'test'});
     
@@ -29,8 +31,8 @@ window.onload = function(){
             
         }
         items.sort(function(a, b){
-           if(a.isCompleted == b.isCompleted)
-               return 0;
+            if(a.isCompleted == b.isCompleted)
+                return 0;
             if(a.isCompleted && !b.isCompleted)
                 return 1;
             return -1;
@@ -42,16 +44,42 @@ window.onload = function(){
     });
 }
 
-function initFirebase(){
-    var config = {
-        apiKey: "AIzaSyCR88YzUgEFPXPU76Z1LyYRiyHIYlR46Qk",
-        authDomain: "ghpages-ideas.firebaseapp.com",
-        databaseURL: "https://ghpages-ideas.firebaseio.com",
-        storageBucket: "ghpages-ideas.appspot.com",
-        messagingSenderId: "265268201351"
-    };
-    firebase.initializeApp(config);
+function init() {
+    disableEditing();
+    firebase.auth().onAuthStateChanged(function(u) {
+        user = u;
+        if (u) {
+            console.log("Logged in. UID: " + u.uid);
+            enableEditing();
+        } else {
+            console.log("Not logged in");
+            disableEditing();
+        }
+    });
+
     database = firebase.database();
+}
+
+function login() {
+    firebase.auth().signOut();
+
+    var email = document.getElementById("emailInput").value;
+    var password = document.getElementById("passwordInput").value;
+    
+    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+        var errorMessage = error.message;
+        alert(errorMessage);
+    });
+}
+
+function enableEditing() {
+    editingEnabled = true;
+    $(".edit-action").removeAttr("disabled");
+}
+
+function disableEditing() {
+    editingEnabled = false;
+    $(".edit-action").attr("disabled", "disabled");
 }
 
 function addNewIdea(){
@@ -62,7 +90,8 @@ function addNewIdea(){
     titleBox.val('');
     descriptionBox.val('');
     var ref = database.ref('ideas');
-    ref.push({title: title, description: description, isCompleted: false});
+    ref.push({title: title, description: description, isCompleted: false})
+        .catch(r => alert(r));
     //console.log(title, description);
 }
 
@@ -74,7 +103,8 @@ function deleteIdea(id){
     if(!confirm('Ar tikrai nori ištrinti įrašą?'))
         return;
     var ref = database.ref('ideas/'+id);
-    ref.remove();
+    ref.remove()
+        .catch(r => alert(r));
 }
 
 function completeIdea(id){
@@ -84,19 +114,21 @@ function completeIdea(id){
            title:  currData.title,
             description: currData.description,
             isCompleted: true
-        }); 
+        })
+        .catch(r => alert(r)); 
     });
 }
 
 function appendIdeaItem(item){
     item.description = item.description.replace(/(?:\r\n|\r|\n)/g, '<br />');
+    var disabled = editingEnabled ? "" : "disabled=\"disabled\"";
     var header =    '<h4 class="panel-title">' + 
                         '<a data-toggle="collapse" data-parent="#ideasAccordion" href="#collapse_'+item.id+'">' + 
                             item.title + 
                         '</a>' +
                         '<div class="btn-toolbar pull-right">' + 
-                            '<button class="btn btn-xs btn-success" onclick="completeIdea(\''+item.id+'\')"><span class="glyphicon glyphicon-ok"></span></button>' +
-                            '<button class="btn btn-xs btn-danger" onclick="deleteIdea(\''+item.id+'\')"><span class="glyphicon glyphicon-trash"></span></button>' + 
+                            '<button class="btn btn-xs btn-success edit-action" '+disabled+' onclick="completeIdea(\''+item.id+'\')"><span class="glyphicon glyphicon-ok"></span></button>' +
+                            '<button class="btn btn-xs btn-danger edit-action" '+disabled+' onclick="deleteIdea(\''+item.id+'\')"><span class="glyphicon glyphicon-trash"></span></button>' + 
                         '</div>' +
                     '</h4>';
     if(item.isCompleted){
@@ -106,7 +138,7 @@ function appendIdeaItem(item){
                         '</a>' +
                         '<div class="btn-toolbar pull-right">' + 
                             //'<button class="btn btn-xs btn-warning" onclick="editIdea(\''+id+'\')"><span class="glyphicon glyphicon-pencil"></span></button>' +
-                            '<button class="btn btn-xs btn-danger" onclick="deleteIdea(\''+item.id+'\')"><span class="glyphicon glyphicon-trash"></span></button>' + 
+                            '<button class="btn btn-xs btn-danger edit-action" '+disabled+' onclick="deleteIdea(\''+item.id+'\')"><span class="glyphicon glyphicon-trash"></span></button>' + 
                         '</div>' +
                     '</del></h4>';
     }
